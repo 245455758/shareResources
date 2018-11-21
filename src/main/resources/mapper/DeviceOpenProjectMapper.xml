@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.trouble.shareresources.mapper.DeviceOpenProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.trouble.shareresources.pojo.DeviceOpenProject" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="device_id" property="deviceId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.trouble.shareresources.pojo.DeviceOpenProjectWithBLOBs" extends="BaseResultMap" >
+    <result column="project_description" property="projectDescription" jdbcType="LONGVARCHAR" />
+    <result column="sample_requirements" property="sampleRequirements" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, project_name, price, device_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    project_description, sample_requirements
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.trouble.shareresources.pojo.DeviceOpenProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from device_open_project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.trouble.shareresources.pojo.DeviceOpenProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from device_open_project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from device_open_project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from device_open_project
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.trouble.shareresources.pojo.DeviceOpenProjectExample" >
+    delete from device_open_project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.trouble.shareresources.pojo.DeviceOpenProjectWithBLOBs" >
+    insert into device_open_project (id, project_name, price, 
+      device_id, project_description, sample_requirements
+      )
+    values (#{id,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+      #{deviceId,jdbcType=INTEGER}, #{projectDescription,jdbcType=LONGVARCHAR}, #{sampleRequirements,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.trouble.shareresources.pojo.DeviceOpenProjectWithBLOBs" >
+    insert into device_open_project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="projectDescription != null" >
+        project_description,
+      </if>
+      <if test="sampleRequirements != null" >
+        sample_requirements,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="projectDescription != null" >
+        #{projectDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sampleRequirements != null" >
+        #{sampleRequirements,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.trouble.shareresources.pojo.DeviceOpenProjectExample" resultType="java.lang.Integer" >
+    select count(*) from device_open_project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update device_open_project
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectName != null" >
+        project_name = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.deviceId != null" >
+        device_id = #{record.deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectDescription != null" >
+        project_description = #{record.projectDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.sampleRequirements != null" >
+        sample_requirements = #{record.sampleRequirements,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update device_open_project
+    set id = #{record.id,jdbcType=INTEGER},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      device_id = #{record.deviceId,jdbcType=INTEGER},
+      project_description = #{record.projectDescription,jdbcType=LONGVARCHAR},
+      sample_requirements = #{record.sampleRequirements,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update device_open_project
+    set id = #{record.id,jdbcType=INTEGER},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      device_id = #{record.deviceId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trouble.shareresources.pojo.DeviceOpenProjectWithBLOBs" >
+    update device_open_project
+    <set >
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="projectDescription != null" >
+        project_description = #{projectDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sampleRequirements != null" >
+        sample_requirements = #{sampleRequirements,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.trouble.shareresources.pojo.DeviceOpenProjectWithBLOBs" >
+    update device_open_project
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      device_id = #{deviceId,jdbcType=INTEGER},
+      project_description = #{projectDescription,jdbcType=LONGVARCHAR},
+      sample_requirements = #{sampleRequirements,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trouble.shareresources.pojo.DeviceOpenProject" >
+    update device_open_project
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      device_id = #{deviceId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

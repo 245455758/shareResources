@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.trouble.shareresources.mapper.DeviceReservationRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.trouble.shareresources.pojo.DeviceReservationRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="reservation_date" property="reservationDate" jdbcType="DATE" />
+    <result column="reservation_project" property="reservationProject" jdbcType="VARCHAR" />
+    <result column="reservation_user" property="reservationUser" jdbcType="VARCHAR" />
+    <result column="reservation_unit" property="reservationUnit" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, reservation_date, reservation_project, reservation_user, reservation_unit, device_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.trouble.shareresources.pojo.DeviceReservationRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from device_reservation_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from device_reservation_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from device_reservation_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.trouble.shareresources.pojo.DeviceReservationRecordExample" >
+    delete from device_reservation_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.trouble.shareresources.pojo.DeviceReservationRecord" >
+    insert into device_reservation_record (id, reservation_date, reservation_project, 
+      reservation_user, reservation_unit, device_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{reservationDate,jdbcType=DATE}, #{reservationProject,jdbcType=VARCHAR}, 
+      #{reservationUser,jdbcType=VARCHAR}, #{reservationUnit,jdbcType=VARCHAR}, #{deviceId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.trouble.shareresources.pojo.DeviceReservationRecord" >
+    insert into device_reservation_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="reservationDate != null" >
+        reservation_date,
+      </if>
+      <if test="reservationProject != null" >
+        reservation_project,
+      </if>
+      <if test="reservationUser != null" >
+        reservation_user,
+      </if>
+      <if test="reservationUnit != null" >
+        reservation_unit,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reservationDate != null" >
+        #{reservationDate,jdbcType=DATE},
+      </if>
+      <if test="reservationProject != null" >
+        #{reservationProject,jdbcType=VARCHAR},
+      </if>
+      <if test="reservationUser != null" >
+        #{reservationUser,jdbcType=VARCHAR},
+      </if>
+      <if test="reservationUnit != null" >
+        #{reservationUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.trouble.shareresources.pojo.DeviceReservationRecordExample" resultType="java.lang.Integer" >
+    select count(*) from device_reservation_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update device_reservation_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.reservationDate != null" >
+        reservation_date = #{record.reservationDate,jdbcType=DATE},
+      </if>
+      <if test="record.reservationProject != null" >
+        reservation_project = #{record.reservationProject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservationUser != null" >
+        reservation_user = #{record.reservationUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservationUnit != null" >
+        reservation_unit = #{record.reservationUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceId != null" >
+        device_id = #{record.deviceId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update device_reservation_record
+    set id = #{record.id,jdbcType=INTEGER},
+      reservation_date = #{record.reservationDate,jdbcType=DATE},
+      reservation_project = #{record.reservationProject,jdbcType=VARCHAR},
+      reservation_user = #{record.reservationUser,jdbcType=VARCHAR},
+      reservation_unit = #{record.reservationUnit,jdbcType=VARCHAR},
+      device_id = #{record.deviceId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trouble.shareresources.pojo.DeviceReservationRecord" >
+    update device_reservation_record
+    <set >
+      <if test="reservationDate != null" >
+        reservation_date = #{reservationDate,jdbcType=DATE},
+      </if>
+      <if test="reservationProject != null" >
+        reservation_project = #{reservationProject,jdbcType=VARCHAR},
+      </if>
+      <if test="reservationUser != null" >
+        reservation_user = #{reservationUser,jdbcType=VARCHAR},
+      </if>
+      <if test="reservationUnit != null" >
+        reservation_unit = #{reservationUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trouble.shareresources.pojo.DeviceReservationRecord" >
+    update device_reservation_record
+    set reservation_date = #{reservationDate,jdbcType=DATE},
+      reservation_project = #{reservationProject,jdbcType=VARCHAR},
+      reservation_user = #{reservationUser,jdbcType=VARCHAR},
+      reservation_unit = #{reservationUnit,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

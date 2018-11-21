@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.trouble.shareresources.mapper.DeviceDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.trouble.shareresources.pojo.DeviceDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="affiliation_unit" property="affiliationUnit" jdbcType="VARCHAR" />
+    <result column="device_manager" property="deviceManager" jdbcType="VARCHAR" />
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="device_num" property="deviceNum" jdbcType="VARCHAR" />
+    <result column="device_location" property="deviceLocation" jdbcType="VARCHAR" />
+    <result column="device_type" property="deviceType" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="e_mail" property="eMail" jdbcType="VARCHAR" />
+    <result column="english_name" property="englishName" jdbcType="VARCHAR" />
+    <result column="manufacture" property="manufacture" jdbcType="VARCHAR" />
+    <result column="manufacture_nation" property="manufactureNation" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.trouble.shareresources.pojo.DeviceDetailWithBLOBs" extends="BaseResultMap" >
+    <result column="main_application" property="mainApplication" jdbcType="LONGVARCHAR" />
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="sample_requirements" property="sampleRequirements" jdbcType="LONGVARCHAR" />
+    <result column="perforamnce" property="perforamnce" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, affiliation_unit, device_manager, device_name, device_num, device_location, device_type, 
+    department, telephone, e_mail, english_name, manufacture, manufacture_nation
+  </sql>
+  <sql id="Blob_Column_List" >
+    main_application, description, sample_requirements, perforamnce
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.trouble.shareresources.pojo.DeviceDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from device_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.trouble.shareresources.pojo.DeviceDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from device_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from device_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from device_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.trouble.shareresources.pojo.DeviceDetailExample" >
+    delete from device_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.trouble.shareresources.pojo.DeviceDetailWithBLOBs" >
+    insert into device_detail (id, affiliation_unit, device_manager, 
+      device_name, device_num, device_location, 
+      device_type, department, telephone, 
+      e_mail, english_name, manufacture, 
+      manufacture_nation, main_application, 
+      description, sample_requirements, 
+      perforamnce)
+    values (#{id,jdbcType=INTEGER}, #{affiliationUnit,jdbcType=VARCHAR}, #{deviceManager,jdbcType=VARCHAR}, 
+      #{deviceName,jdbcType=VARCHAR}, #{deviceNum,jdbcType=VARCHAR}, #{deviceLocation,jdbcType=VARCHAR}, 
+      #{deviceType,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{eMail,jdbcType=VARCHAR}, #{englishName,jdbcType=VARCHAR}, #{manufacture,jdbcType=VARCHAR}, 
+      #{manufactureNation,jdbcType=VARCHAR}, #{mainApplication,jdbcType=LONGVARCHAR}, 
+      #{description,jdbcType=LONGVARCHAR}, #{sampleRequirements,jdbcType=LONGVARCHAR}, 
+      #{perforamnce,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.trouble.shareresources.pojo.DeviceDetailWithBLOBs" >
+    insert into device_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="affiliationUnit != null" >
+        affiliation_unit,
+      </if>
+      <if test="deviceManager != null" >
+        device_manager,
+      </if>
+      <if test="deviceName != null" >
+        device_name,
+      </if>
+      <if test="deviceNum != null" >
+        device_num,
+      </if>
+      <if test="deviceLocation != null" >
+        device_location,
+      </if>
+      <if test="deviceType != null" >
+        device_type,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="eMail != null" >
+        e_mail,
+      </if>
+      <if test="englishName != null" >
+        english_name,
+      </if>
+      <if test="manufacture != null" >
+        manufacture,
+      </if>
+      <if test="manufactureNation != null" >
+        manufacture_nation,
+      </if>
+      <if test="mainApplication != null" >
+        main_application,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="sampleRequirements != null" >
+        sample_requirements,
+      </if>
+      <if test="perforamnce != null" >
+        perforamnce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="affiliationUnit != null" >
+        #{affiliationUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceManager != null" >
+        #{deviceManager,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null" >
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNum != null" >
+        #{deviceNum,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceLocation != null" >
+        #{deviceLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null" >
+        #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null" >
+        #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacture != null" >
+        #{manufacture,jdbcType=VARCHAR},
+      </if>
+      <if test="manufactureNation != null" >
+        #{manufactureNation,jdbcType=VARCHAR},
+      </if>
+      <if test="mainApplication != null" >
+        #{mainApplication,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sampleRequirements != null" >
+        #{sampleRequirements,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="perforamnce != null" >
+        #{perforamnce,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.trouble.shareresources.pojo.DeviceDetailExample" resultType="java.lang.Integer" >
+    select count(*) from device_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update device_detail
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.affiliationUnit != null" >
+        affiliation_unit = #{record.affiliationUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceManager != null" >
+        device_manager = #{record.deviceManager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceName != null" >
+        device_name = #{record.deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceNum != null" >
+        device_num = #{record.deviceNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceLocation != null" >
+        device_location = #{record.deviceLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceType != null" >
+        device_type = #{record.deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eMail != null" >
+        e_mail = #{record.eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.englishName != null" >
+        english_name = #{record.englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacture != null" >
+        manufacture = #{record.manufacture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufactureNation != null" >
+        manufacture_nation = #{record.manufactureNation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainApplication != null" >
+        main_application = #{record.mainApplication,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.sampleRequirements != null" >
+        sample_requirements = #{record.sampleRequirements,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.perforamnce != null" >
+        perforamnce = #{record.perforamnce,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update device_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      affiliation_unit = #{record.affiliationUnit,jdbcType=VARCHAR},
+      device_manager = #{record.deviceManager,jdbcType=VARCHAR},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      device_num = #{record.deviceNum,jdbcType=VARCHAR},
+      device_location = #{record.deviceLocation,jdbcType=VARCHAR},
+      device_type = #{record.deviceType,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      e_mail = #{record.eMail,jdbcType=VARCHAR},
+      english_name = #{record.englishName,jdbcType=VARCHAR},
+      manufacture = #{record.manufacture,jdbcType=VARCHAR},
+      manufacture_nation = #{record.manufactureNation,jdbcType=VARCHAR},
+      main_application = #{record.mainApplication,jdbcType=LONGVARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      sample_requirements = #{record.sampleRequirements,jdbcType=LONGVARCHAR},
+      perforamnce = #{record.perforamnce,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update device_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      affiliation_unit = #{record.affiliationUnit,jdbcType=VARCHAR},
+      device_manager = #{record.deviceManager,jdbcType=VARCHAR},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      device_num = #{record.deviceNum,jdbcType=VARCHAR},
+      device_location = #{record.deviceLocation,jdbcType=VARCHAR},
+      device_type = #{record.deviceType,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      e_mail = #{record.eMail,jdbcType=VARCHAR},
+      english_name = #{record.englishName,jdbcType=VARCHAR},
+      manufacture = #{record.manufacture,jdbcType=VARCHAR},
+      manufacture_nation = #{record.manufactureNation,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trouble.shareresources.pojo.DeviceDetailWithBLOBs" >
+    update device_detail
+    <set >
+      <if test="affiliationUnit != null" >
+        affiliation_unit = #{affiliationUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceManager != null" >
+        device_manager = #{deviceManager,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null" >
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNum != null" >
+        device_num = #{deviceNum,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceLocation != null" >
+        device_location = #{deviceLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null" >
+        device_type = #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null" >
+        e_mail = #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        english_name = #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacture != null" >
+        manufacture = #{manufacture,jdbcType=VARCHAR},
+      </if>
+      <if test="manufactureNation != null" >
+        manufacture_nation = #{manufactureNation,jdbcType=VARCHAR},
+      </if>
+      <if test="mainApplication != null" >
+        main_application = #{mainApplication,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sampleRequirements != null" >
+        sample_requirements = #{sampleRequirements,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="perforamnce != null" >
+        perforamnce = #{perforamnce,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.trouble.shareresources.pojo.DeviceDetailWithBLOBs" >
+    update device_detail
+    set affiliation_unit = #{affiliationUnit,jdbcType=VARCHAR},
+      device_manager = #{deviceManager,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      device_num = #{deviceNum,jdbcType=VARCHAR},
+      device_location = #{deviceLocation,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      e_mail = #{eMail,jdbcType=VARCHAR},
+      english_name = #{englishName,jdbcType=VARCHAR},
+      manufacture = #{manufacture,jdbcType=VARCHAR},
+      manufacture_nation = #{manufactureNation,jdbcType=VARCHAR},
+      main_application = #{mainApplication,jdbcType=LONGVARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR},
+      sample_requirements = #{sampleRequirements,jdbcType=LONGVARCHAR},
+      perforamnce = #{perforamnce,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trouble.shareresources.pojo.DeviceDetail" >
+    update device_detail
+    set affiliation_unit = #{affiliationUnit,jdbcType=VARCHAR},
+      device_manager = #{deviceManager,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      device_num = #{deviceNum,jdbcType=VARCHAR},
+      device_location = #{deviceLocation,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      e_mail = #{eMail,jdbcType=VARCHAR},
+      english_name = #{englishName,jdbcType=VARCHAR},
+      manufacture = #{manufacture,jdbcType=VARCHAR},
+      manufacture_nation = #{manufactureNation,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
