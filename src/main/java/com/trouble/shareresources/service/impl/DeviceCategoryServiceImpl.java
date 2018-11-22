@@ -15,7 +15,10 @@ public class DeviceCategoryServiceImpl implements DeviceCategoryService{
     @Autowired
     private DeviceCategoryMapper deviceCategoryMapper;
 
-
+    /**
+     * 得到所有的种类
+     * @return
+     */
     @Override
     public List findAllCategory() {
         DeviceCategoryExample example = new DeviceCategoryExample();

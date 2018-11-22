@@ -11,6 +11,8 @@ public class Device {
 
     private String catalogue;
 
+    private String pic;
+
     public Integer getId() {
         return id;
     }
@@ -49,5 +51,13 @@ public class Device {
 
     public void setCatalogue(String catalogue) {
         this.catalogue = catalogue == null ? null : catalogue.trim();
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic == null ? null : pic.trim();
     }
 }

@@ -7,6 +7,7 @@
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="affiliation_unit" property="affiliationUnit" jdbcType="VARCHAR" />
     <result column="catalogue" property="catalogue" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, type, affiliation_unit, catalogue
+    id, name, type, affiliation_unit, catalogue, pic
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.trouble.shareresources.pojo.DeviceExample" >
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.trouble.shareresources.pojo.Device" >
     insert into device (id, name, type, 
-      affiliation_unit, catalogue)
+      affiliation_unit, catalogue, pic
+      )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{affiliationUnit,jdbcType=VARCHAR}, #{catalogue,jdbcType=VARCHAR})
+      #{affiliationUnit,jdbcType=VARCHAR}, #{catalogue,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.trouble.shareresources.pojo.Device" >
     insert into device
@@ -123,6 +126,9 @@
       <if test="catalogue != null" >
         catalogue,
       </if>
+      <if test="pic != null" >
+        pic,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -139,6 +145,9 @@
       </if>
       <if test="catalogue != null" >
         #{catalogue,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +175,9 @@
       <if test="record.catalogue != null" >
         catalogue = #{record.catalogue,jdbcType=VARCHAR},
       </if>
+      <if test="record.pic != null" >
+        pic = #{record.pic,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +189,8 @@
       name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
       affiliation_unit = #{record.affiliationUnit,jdbcType=VARCHAR},
-      catalogue = #{record.catalogue,jdbcType=VARCHAR}
+      catalogue = #{record.catalogue,jdbcType=VARCHAR},
+      pic = #{record.pic,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +210,9 @@
       <if test="catalogue != null" >
         catalogue = #{catalogue,jdbcType=VARCHAR},
       </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +221,8 @@
     set name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       affiliation_unit = #{affiliationUnit,jdbcType=VARCHAR},
-      catalogue = #{catalogue,jdbcType=VARCHAR}
+      catalogue = #{catalogue,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
