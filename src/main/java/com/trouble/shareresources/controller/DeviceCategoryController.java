@@ -1,15 +1,11 @@
 package com.trouble.shareresources.controller;
 
-import com.trouble.shareresources.pojo.DeviceCategory;
 import com.trouble.shareresources.service.DeviceCategoryService;
-import com.trouble.shareresources.util.NetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController

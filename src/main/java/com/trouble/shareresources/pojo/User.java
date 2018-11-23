@@ -2,9 +2,26 @@ package com.trouble.shareresources.pojo;
 
 public class User {
     private Integer id;
+
     private String username;
-    private Integer age;
-    private Integer customerid;
+
+    private String realname;
+
+    private String telephone;
+
+    private String email;
+
+    private String unit;
+
+    private String password;
+
+    private String businessname;
+
+    private String connectMan;
+
+    private String role;
+
+    private String roleGroup;
 
     public Integer getId() {
         return id;
@@ -19,33 +36,78 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username == null ? null : username.trim();
     }
 
-    public Integer getAge() {
-        return age;
+    public String getRealname() {
+        return realname;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setRealname(String realname) {
+        this.realname = realname == null ? null : realname.trim();
     }
 
-    public Integer getCustomerid() {
-        return customerid;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setCustomerid(Integer customerid) {
-        this.customerid = customerid;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", age=" + age +
-                ", customerid=" + customerid +
-                '}';
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit == null ? null : unit.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
+
+    public String getBusinessname() {
+        return businessname;
+    }
+
+    public void setBusinessname(String businessname) {
+        this.businessname = businessname == null ? null : businessname.trim();
+    }
+
+    public String getConnectMan() {
+        return connectMan;
+    }
+
+    public void setConnectMan(String connectMan) {
+        this.connectMan = connectMan == null ? null : connectMan.trim();
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role == null ? null : role.trim();
+    }
+
+    public String getRoleGroup() {
+        return roleGroup;
+    }
+
+    public void setRoleGroup(String roleGroup) {
+        this.roleGroup = roleGroup == null ? null : roleGroup.trim();
     }
 }
-
