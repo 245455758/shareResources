@@ -110,4 +110,14 @@ public class User {
     public void setRoleGroup(String roleGroup) {
         this.roleGroup = roleGroup == null ? null : roleGroup.trim();
     }
+
+    public User(String username, String telephone, String password, String role) {
+        this.username = username;
+        this.telephone = telephone;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User() {
+    }
 }

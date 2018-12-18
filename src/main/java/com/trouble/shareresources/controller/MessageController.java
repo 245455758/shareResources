@@ -1,5 +1,7 @@
 package com.trouble.shareresources.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
@@ -8,7 +10,9 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.trouble.shareresources.entity.ResultType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,10 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class MessageController {
 
     @RequestMapping("/sendMessage")
-    public ResultType sendValidateMessage(){
+    @ResponseBody
+    public ResultType sendValidateMessage(@RequestBody String str){
+        JSONObject jsonStr = JSON.parseObject(str);
+        String telephone = jsonStr.getString("telephone");
         int code = ((int) (Math.random()*1000000));
         try {
-            sendMessage(Integer.toString(code), "17693459940");
+            sendMessage(Integer.toString(code), telephone);
             return  new ResultType(true,code+"");
         } catch (Exception e) {
             e.printStackTrace();

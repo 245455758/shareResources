@@ -32,9 +32,30 @@ public class UserController {
 
     }
 
+    @RequestMapping("/register")
+    @ResponseBody
     public ResultType register(@RequestBody String str){
+        System.out.println("进入register");
         JSONObject jsonStr = JSON.parseObject(str);
-        return null;
+        String username = jsonStr.getString("username");
+        String password = jsonStr.getString("password");
+        String telephone = jsonStr.getString("telephone");
+        Boolean validateCode = jsonStr.getBoolean("validateCode");
+
+        System.out.println("=============="+username+","+password+","+telephone+","+validateCode);
+        if(validateCode){
+            User user1 = new User(username, telephone, password, "USER");
+            System.out.println(user1);
+            User user = userService.saveUser(user1);
+            System.out.println("out save:"+user);
+            if (user!=null){
+                return new ResultType(true,"注册成功");
+            }else{
+                return new ResultType(false,"注册失败，请重试");
+            }
+        }else{
+            return new ResultType(false,"验证码不正确，请重试");
+        }
     }
 
 }
