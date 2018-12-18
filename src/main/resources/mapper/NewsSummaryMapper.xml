@@ -6,6 +6,7 @@
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="pic" property="pic" jdbcType="VARCHAR" />
     <result column="publish_date" property="publishDate" jdbcType="DATE" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.trouble.shareresources.pojo.NewsSummary" extends="BaseResultMap" >
     <result column="abs_content" property="absContent" jdbcType="LONGVARCHAR" />
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, pic, publish_date
+    id, title, pic, publish_date, status
   </sql>
   <sql id="Blob_Column_List" >
     abs_content
@@ -124,9 +125,11 @@
   </delete>
   <insert id="insert" parameterType="com.trouble.shareresources.pojo.NewsSummary" >
     insert into news_summary (id, title, pic, 
-      publish_date, abs_content)
+      publish_date, status, abs_content
+      )
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, 
-      #{publishDate,jdbcType=DATE}, #{absContent,jdbcType=LONGVARCHAR})
+      #{publishDate,jdbcType=DATE}, #{status,jdbcType=INTEGER}, #{absContent,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.trouble.shareresources.pojo.NewsSummary" >
     insert into news_summary
@@ -142,6 +145,9 @@
       </if>
       <if test="publishDate != null" >
         publish_date,
+      </if>
+      <if test="status != null" >
+        status,
       </if>
       <if test="absContent != null" >
         abs_content,
@@ -159,6 +165,9 @@
       </if>
       <if test="publishDate != null" >
         #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="absContent != null" >
         #{absContent,jdbcType=LONGVARCHAR},
@@ -186,6 +195,9 @@
       <if test="record.publishDate != null" >
         publish_date = #{record.publishDate,jdbcType=DATE},
       </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
       <if test="record.absContent != null" >
         abs_content = #{record.absContent,jdbcType=LONGVARCHAR},
       </if>
@@ -200,6 +212,7 @@
       title = #{record.title,jdbcType=VARCHAR},
       pic = #{record.pic,jdbcType=VARCHAR},
       publish_date = #{record.publishDate,jdbcType=DATE},
+      status = #{record.status,jdbcType=INTEGER},
       abs_content = #{record.absContent,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -210,7 +223,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
       pic = #{record.pic,jdbcType=VARCHAR},
-      publish_date = #{record.publishDate,jdbcType=DATE}
+      publish_date = #{record.publishDate,jdbcType=DATE},
+      status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +241,9 @@
       <if test="publishDate != null" >
         publish_date = #{publishDate,jdbcType=DATE},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
       <if test="absContent != null" >
         abs_content = #{absContent,jdbcType=LONGVARCHAR},
       </if>
@@ -238,6 +255,7 @@
     set title = #{title,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
       publish_date = #{publishDate,jdbcType=DATE},
+      status = #{status,jdbcType=INTEGER},
       abs_content = #{absContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -245,7 +263,8 @@
     update news_summary
     set title = #{title,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
-      publish_date = #{publishDate,jdbcType=DATE}
+      publish_date = #{publishDate,jdbcType=DATE},
+      status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

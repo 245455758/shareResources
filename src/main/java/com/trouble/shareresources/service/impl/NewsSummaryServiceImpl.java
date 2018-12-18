@@ -17,6 +17,8 @@ public class NewsSummaryServiceImpl implements NewsSummaryService {
     @Override
     public List<NewsSummary> getAllNewsSummary() {
         NewsSummaryExample example = new NewsSummaryExample();
+        NewsSummaryExample.Criteria criteria = example.createCriteria();
+        criteria.andStatusEqualTo(1);
         return newsSummaryMapper.selectByExampleWithBLOBs(example);
     }
 }

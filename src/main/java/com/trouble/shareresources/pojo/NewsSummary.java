@@ -11,6 +11,8 @@ public class NewsSummary {
 
     private Date publishDate;
 
+    private Integer status;
+
     private String absContent;
 
     public Integer getId() {
@@ -43,6 +45,14 @@ public class NewsSummary {
 
     public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getAbsContent() {

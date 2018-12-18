@@ -35,6 +35,9 @@ public class NewsController {
     public News getDetailNews(@RequestBody String str){
         JSONObject jsonStr = JSON.parseObject(str);
         Integer id = jsonStr.getInteger("id");
+        News detailNews = newsService.getDetailNews(id);
+        detailNews.setReadtimes(detailNews.getReadtimes()+1);
+        newsService.saveDetailNews(detailNews.getId());
         return newsService.getDetailNews(id);
     }
 

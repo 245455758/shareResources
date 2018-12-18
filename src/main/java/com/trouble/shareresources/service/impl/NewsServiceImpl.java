@@ -16,4 +16,9 @@ public class NewsServiceImpl implements NewsService {
     public News getDetailNews(Integer id) {
         return newsMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public int saveDetailNews(Integer id) {
+        return newsMapper.updateReadTimes(id);
+    }
 }

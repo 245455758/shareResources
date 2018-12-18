@@ -2,8 +2,9 @@ package com.trouble.shareresources.mapper;
 
 import com.trouble.shareresources.pojo.News;
 import com.trouble.shareresources.pojo.NewsExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface NewsMapper {
     int countByExample(NewsExample example);
@@ -15,6 +16,8 @@ public interface NewsMapper {
     int insert(News record);
 
     int insertSelective(News record);
+
+    int updateReadTimes(Integer id);
 
     List<News> selectByExampleWithBLOBs(NewsExample example);
 
