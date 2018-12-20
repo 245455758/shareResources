@@ -102,4 +102,19 @@ public class News {
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
     }
+
+    public News(String title, String publisher, Date time, Integer isrecommend, Integer readtimes, String catelogue, Integer status, String pic, String content) {
+        this.title = title;
+        this.publisher = publisher;
+        this.time = time;
+        this.isrecommend = isrecommend;
+        this.readtimes = readtimes;
+        this.catelogue = catelogue;
+        this.status = status;
+        this.pic = pic;
+        this.content = content;
+    }
+
+    public News() {
+    }
 }

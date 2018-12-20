@@ -18,37 +18,34 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     @RequestMapping("/login")
     @ResponseBody
     public ResultType login(@RequestBody String str){
         JSONObject jsonStr = JSON.parseObject(str);
-        User user = userService.checkLogin(jsonStr.getString("username"), "password");
-        if (user==null){
+        String username = jsonStr.getString("username");
+        String password = jsonStr.getString("password");
+        User user = userService.checkLogin(username, password);
+        User user1 = userService.checkLoginByTelephone(username, password);
+        if (user==null&&user1==null){
             return new ResultType(false,"用户登陆失败");
         }else{
             return new ResultType(true,"用户登录成功");
         }
-
     }
 
     @RequestMapping("/register")
     @ResponseBody
     public ResultType register(@RequestBody String str){
-        System.out.println("进入register");
+//        System.out.println("进入register");
         JSONObject jsonStr = JSON.parseObject(str);
         String username = jsonStr.getString("username");
         String password = jsonStr.getString("password");
         String telephone = jsonStr.getString("telephone");
         Boolean validateCode = jsonStr.getBoolean("validateCode");
-
-        System.out.println("=============="+username+","+password+","+telephone+","+validateCode);
         if(validateCode){
             User user1 = new User(username, telephone, password, "USER");
-            System.out.println(user1);
-            User user = userService.saveUser(user1);
-            System.out.println("out save:"+user);
-            if (user!=null){
+            int registerRes = userService.saveUser(user1);
+            if (registerRes>0){
                 return new ResultType(true,"注册成功");
             }else{
                 return new ResultType(false,"注册失败，请重试");

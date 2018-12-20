@@ -16,13 +16,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public User saveUser(User user) {
-        int insert = userMapper.insert(user);
-        if (insert==0){
-            return  null;
-        }else{
-            return user;
-        }
+    public int saveUser(User user) {
+       return userMapper.insert(user);
     }
 
     @Override
@@ -32,7 +27,20 @@ public class UserServiceImpl implements UserService {
         criteria.andUsernameEqualTo(name);
         criteria.andPasswordEqualTo(password);
         List<User> users = userMapper.selectByExample(example);
-        if (users!=null){
+        if (users!=null&&users.size()>0){
+            return users.get(0);
+        }else{
+            return null;
+        }
+    }
+    @Override
+    public User checkLoginByTelephone(String phobeNumber,String password){
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andPasswordEqualTo(password);
+        criteria.andTelephoneEqualTo(phobeNumber);
+        List<User> users = userMapper.selectByExample(example);
+        if (users!=null&&users.size()>0){
             return users.get(0);
         }else{
             return null;

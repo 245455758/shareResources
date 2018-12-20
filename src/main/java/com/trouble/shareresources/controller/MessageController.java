@@ -41,13 +41,13 @@ public class MessageController {
         //设置超时时间-可自行调整
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
-//初始化ascClient需要的几个参数
+        //初始化ascClient需要的几个参数
         final String product = "Dysmsapi";//短信API产品名称（短信产品名固定，无需修改）
         final String domain = "dysmsapi.aliyuncs.com";//短信API产品域名（接口地址固定，无需修改）
-//替换成你的AK
+        //替换成你的AK
         final String accessKeyId = "LTAIMTAao5AqDUO4";//你的accessKeyId,参考本文档步骤2
         final String accessKeySecret = "W5B29JzuaNh3lXNTG72lBc3ktKaPuO";//你的accessKeySecret，参考本文档步骤2
-//初始化ascClient,暂时不支持多region（请勿修改）
+        //初始化ascClient,暂时不支持多region（请勿修改）
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId,
                 accessKeySecret);
         DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
@@ -69,7 +69,7 @@ public class MessageController {
         //request.setSmsUpExtendCode("90997");
         //可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
         request.setOutId("yourOutId");
-//请求失败这里会抛ClientException异常
+        //请求失败这里会抛ClientException异常
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         if(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
             //请求成功

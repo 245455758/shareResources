@@ -9,7 +9,7 @@ public interface UserService {
      * @param user
      * @return 注册成功将用户信息返回，否则返回null
      */
-    User saveUser(User user);
+    int saveUser(User user);
 
     /**
      * 检查用户名密码是否正确
@@ -19,4 +19,12 @@ public interface UserService {
      * @return 验证通过则将用户信息返回，否则返回null
      */
     User checkLogin(String username, String password);
+
+    /**
+     * 根据用户手机号和密码查找用户
+     * @param phobeNumber
+     * @param password
+     * @return
+     */
+    public User checkLoginByTelephone(String phobeNumber,String password);
 }
