@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/file")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class FileController {
 
     @RequestMapping("/test")

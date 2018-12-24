@@ -7,16 +7,14 @@ import com.trouble.shareresources.entity.ResultType;
 import com.trouble.shareresources.pojo.News;
 import com.trouble.shareresources.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/news")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class NewsController {
 
 //    @Autowired
@@ -57,8 +55,15 @@ public class NewsController {
         }else {
             return new ResultType(false,"保存失败");
         }
-
     }
+
+    @RequestMapping("getNewsByCategory")
+    @ResponseBody
+    public List<News> getNewsByCategory(@RequestBody String str){
+        JSONObject jsonStr = JSON.parseObject(str);
+        return newsService.findNewsByCategory(jsonStr.getString("id"));
+    }
+
 
 
 }

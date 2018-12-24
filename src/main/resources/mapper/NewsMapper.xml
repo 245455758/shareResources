@@ -15,6 +15,16 @@
   <resultMap id="ResultMapWithBLOBs" type="com.trouble.shareresources.pojo.News" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="ResultMapWithBLOBs1" type="com.trouble.shareresources.pojo.News"  >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="publisher" property="publisher" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="DATE" />
+    <result column="isRecommend" property="isrecommend" jdbcType="INTEGER" />
+    <result column="catelogue" property="catelogue" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -94,6 +104,13 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+  </select>
+  <select id="selectByCategoryWithBLOBs" resultMap="ResultMapWithBLOBs1" parameterType="java.lang.String">
+    SELECT
+    id,title,publisher,time,isRecommend,catelogue,pic,content
+    from news
+    where catelogue LIKE '%${categoryId}%'
+    order by cast(time as datetime) desc
   </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.trouble.shareresources.pojo.NewsExample" >
     select

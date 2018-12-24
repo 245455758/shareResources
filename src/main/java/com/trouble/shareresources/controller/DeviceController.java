@@ -7,10 +7,7 @@ import com.trouble.shareresources.service.DeviceOpenProjectService;
 import com.trouble.shareresources.service.DeviceReservationService;
 import com.trouble.shareresources.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -19,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/device")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class DeviceController {
     //设备的服务
     @Autowired
@@ -38,6 +36,7 @@ public class DeviceController {
     @ResponseBody
     public List getAllDevices(){
 //        response.setHeader("Access-Control-Allow-Origin","*");
+        int a = 0;
         return deviceService.findAllDevices();
     }
 

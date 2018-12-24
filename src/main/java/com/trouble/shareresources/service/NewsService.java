@@ -14,4 +14,6 @@ public interface NewsService {
 
     List<News> getAllNews();
 
+    List<News> findNewsByCategory(String category);
+
 }

@@ -6,13 +6,11 @@ import com.trouble.shareresources.entity.ResultType;
 import com.trouble.shareresources.pojo.User;
 import com.trouble.shareresources.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class UserController {
 
     @Autowired
@@ -55,4 +53,24 @@ public class UserController {
         }
     }
 
+    @RequestMapping("checkUsername")
+    @ResponseBody
+    public ResultType checkUsername(@RequestBody String str){
+        JSONObject jsonStr = JSON.parseObject(str);
+        User user = userService.findUserByUserName(jsonStr.getString("username"));
+        if (user !=null) return new ResultType(false,"用户名已存在");
+        else return new ResultType(true,"用户名可用");
+    }
+
+    @RequestMapping("checkTelephone")
+    @ResponseBody
+    public ResultType checkTelephone(@RequestBody String str){
+        JSONObject jsonStr = JSON.parseObject(str);
+        User user = userService.findUserByTelephone(jsonStr.getString("telephone"));
+        if (user !=null){
+            System.out.println(user);
+            return new ResultType(false,"手机号已存在");
+        }
+        else return new ResultType(true,"手机号可用");
+    }
 }

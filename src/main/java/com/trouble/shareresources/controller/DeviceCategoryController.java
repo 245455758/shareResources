@@ -2,6 +2,7 @@ package com.trouble.shareresources.controller;
 
 import com.trouble.shareresources.service.DeviceCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("deviceCategory")
+@CrossOrigin(origins = "*",maxAge = 3600)
 //@CrossOrigin(origins="*",allowCredentials="true")
 public class DeviceCategoryController {
     //种类服务类
@@ -26,6 +28,8 @@ public class DeviceCategoryController {
     @ResponseBody
     public List findAllCategory(){
 //        NetUtil.setResponseHeader(response);
+        int a = 0;
+        int b = 1;
         return deviceCategoryService.findAllCategory();
     }
 

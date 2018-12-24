@@ -37,4 +37,9 @@ public class NewsServiceImpl implements NewsService {
         criteria.andStatusEqualTo(1);
         return newsMapper.selectByExample(example);
     }
+
+    @Override
+    public List<News> findNewsByCategory(String category) {
+        return newsMapper.selectByCategoryWithBLOBs(category);
+    }
 }

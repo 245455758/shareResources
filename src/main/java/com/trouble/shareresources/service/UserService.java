@@ -27,4 +27,8 @@ public interface UserService {
      * @return
      */
     public User checkLoginByTelephone(String phobeNumber,String password);
+
+    User findUserByUserName(String username);
+
+    User findUserByTelephone(String telephone);
 }

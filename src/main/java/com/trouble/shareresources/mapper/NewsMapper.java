@@ -21,6 +21,8 @@ public interface NewsMapper {
 
     List<News> selectByExampleWithBLOBs(NewsExample example);
 
+    List<News> selectByCategoryWithBLOBs(@Param("categoryId") String categoryId);
+
     List<News> selectByExample(NewsExample example);
 
     News selectByPrimaryKey(Integer id);
