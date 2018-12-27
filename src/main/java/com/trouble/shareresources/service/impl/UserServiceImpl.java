@@ -65,5 +65,13 @@ public class UserServiceImpl implements UserService {
         return users.size()>0?users.get(0):null;
     }
 
+    @Override
+    public int updatePasswordByTelephone(String telephone, String password) {
+        User user = new User();
+        user.setPassword(password);
+        user.setTelephone(telephone);
+        return userMapper.updatePasswordByTelephone(user);
+    }
+
 
 }

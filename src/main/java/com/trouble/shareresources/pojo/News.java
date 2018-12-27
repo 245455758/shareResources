@@ -21,6 +21,10 @@ public class News {
 
     private String pic;
 
+    private String summaryContent;
+
+    private Date checkTime;
+
     private String content;
 
     public Integer getId() {
@@ -95,6 +99,22 @@ public class News {
         this.pic = pic == null ? null : pic.trim();
     }
 
+    public String getSummaryContent() {
+        return summaryContent;
+    }
+
+    public void setSummaryContent(String summaryContent) {
+        this.summaryContent = summaryContent == null ? null : summaryContent.trim();
+    }
+
+    public Date getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(Date checkTime) {
+        this.checkTime = checkTime;
+    }
+
     public String getContent() {
         return content;
     }
@@ -103,7 +123,13 @@ public class News {
         this.content = content == null ? null : content.trim();
     }
 
-    public News(String title, String publisher, Date time, Integer isrecommend, Integer readtimes, String catelogue, Integer status, String pic, String content) {
+//    News news = new News(title,publisher,new Date(),0,0,"新闻",0,pic,content);
+
+
+    public News() {
+    }
+
+    public News(String title, String publisher, Date time, Integer isrecommend, Integer readtimes, String catelogue, Integer status, String pic, String summaryContent, String content) {
         this.title = title;
         this.publisher = publisher;
         this.time = time;
@@ -112,9 +138,22 @@ public class News {
         this.catelogue = catelogue;
         this.status = status;
         this.pic = pic;
+        this.summaryContent = summaryContent;
         this.content = content;
     }
 
-    public News() {
+    public News(Integer id, String title, String publisher, Date time, Integer isrecommend, Integer readtimes, String catelogue, Integer status, String pic, String summaryContent, Date checkTime, String content) {
+        this.id = id;
+        this.title = title;
+        this.publisher = publisher;
+        this.time = time;
+        this.isrecommend = isrecommend;
+        this.readtimes = readtimes;
+        this.catelogue = catelogue;
+        this.status = status;
+        this.pic = pic;
+        this.summaryContent = summaryContent;
+        this.checkTime = checkTime;
+        this.content = content;
     }
 }

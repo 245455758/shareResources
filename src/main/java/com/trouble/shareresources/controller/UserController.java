@@ -62,6 +62,11 @@ public class UserController {
         else return new ResultType(true,"用户名可用");
     }
 
+    /**
+     * 在用户注册是判断数据库里是否有此手机号码，并返回相应信息
+     * @param str
+     * @return
+     */
     @RequestMapping("checkTelephone")
     @ResponseBody
     public ResultType checkTelephone(@RequestBody String str){
@@ -72,5 +77,28 @@ public class UserController {
             return new ResultType(false,"手机号已存在");
         }
         else return new ResultType(true,"手机号可用");
+    }
+
+    /**
+     * 在用户忘记密码时，查询数据库中是否有此手机号
+     * @param str
+     * @return
+     */
+    @RequestMapping("checkTelephoneExist")
+    @ResponseBody
+    public ResultType checkTelephoneExist(@RequestBody String str){
+        JSONObject jsonStr = JSON.parseObject(str);
+        User user = userService.findUserByTelephone(jsonStr.getString("telephone"));
+        if(user != null)    return  new ResultType(true,"手机号存在");
+        else return new ResultType(false,"手机号不存在");
+    }
+
+    @RequestMapping("updatePasswordByTelephone")
+    public ResultType updatePasswordByTelephone(@RequestBody String str){
+        JSONObject jsonStr = JSON.parseObject(str);
+        System.out.println("This is updatePassword.telephone:"+jsonStr.getString("telephone")+",password"+jsonStr.getString("password"));
+        int i = userService.updatePasswordByTelephone(jsonStr.getString("telephone"), jsonStr.getString("password"));
+        if (i>0) return new ResultType(true,"更新密码成功");
+        else return new ResultType(false,"更新密码失败");
     }
 }

@@ -40,6 +40,10 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> findNewsByCategory(String category) {
-        return newsMapper.selectByCategoryWithBLOBs(category);
+//        return newsMapper.selectByCategoryWithBLOBs(category);
+        NewsExample example = new NewsExample();
+        NewsExample.Criteria criteria = example.createCriteria();
+        criteria.andCatelogueLike(category);
+        return newsMapper.selectByExampleWithBLOBs(example);
     }
 }

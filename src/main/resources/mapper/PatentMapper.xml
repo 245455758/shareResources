@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.trouble.shareresources.mapper.PatentMapper" >
+  <resultMap id="BaseResultMap" type="com.trouble.shareresources.pojo.Patent" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="patent_no" property="patentNo" jdbcType="VARCHAR" />
+    <result column="patent_type" property="patentType" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="publish_date" property="publishDate" jdbcType="DATE" />
+    <result column="field" property="field" jdbcType="VARCHAR" />
+    <result column="patent_owner" property="patentOwner" jdbcType="VARCHAR" />
+    <result column="Maturity" property="maturity" jdbcType="VARCHAR" />
+    <result column="has_sample" property="hasSample" jdbcType="BIT" />
+    <result column="patent_transfer_form" property="patentTransferForm" jdbcType="VARCHAR" />
+    <result column="liencese_others" property="lienceseOthers" jdbcType="BIT" />
+    <result column="site_requirements" property="siteRequirements" jdbcType="VARCHAR" />
+    <result column="personnel_requirements" property="personnelRequirements" jdbcType="VARCHAR" />
+    <result column="revenue_expected" property="revenueExpected" jdbcType="VARCHAR" />
+    <result column="review_date" property="reviewDate" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.trouble.shareresources.pojo.Patent" extends="BaseResultMap" >
+    <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, patent_no, patent_type, price, publish_date, field, patent_owner, Maturity, 
+    has_sample, patent_transfer_form, liencese_others, site_requirements, personnel_requirements, 
+    revenue_expected, review_date
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduction
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.trouble.shareresources.pojo.PatentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from patent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.trouble.shareresources.pojo.PatentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from patent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from patent
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from patent
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.trouble.shareresources.pojo.PatentExample" >
+    delete from patent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.trouble.shareresources.pojo.Patent" >
+    insert into patent (id, name, patent_no, 
+      patent_type, price, publish_date, 
+      field, patent_owner, Maturity, 
+      has_sample, patent_transfer_form, liencese_others, 
+      site_requirements, personnel_requirements, 
+      revenue_expected, review_date, introduction
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{patentNo,jdbcType=VARCHAR}, 
+      #{patentType,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{publishDate,jdbcType=DATE}, 
+      #{field,jdbcType=VARCHAR}, #{patentOwner,jdbcType=VARCHAR}, #{maturity,jdbcType=VARCHAR}, 
+      #{hasSample,jdbcType=BIT}, #{patentTransferForm,jdbcType=VARCHAR}, #{lienceseOthers,jdbcType=BIT}, 
+      #{siteRequirements,jdbcType=VARCHAR}, #{personnelRequirements,jdbcType=VARCHAR}, 
+      #{revenueExpected,jdbcType=VARCHAR}, #{reviewDate,jdbcType=DATE}, #{introduction,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.trouble.shareresources.pojo.Patent" >
+    insert into patent
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="patentNo != null" >
+        patent_no,
+      </if>
+      <if test="patentType != null" >
+        patent_type,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="publishDate != null" >
+        publish_date,
+      </if>
+      <if test="field != null" >
+        field,
+      </if>
+      <if test="patentOwner != null" >
+        patent_owner,
+      </if>
+      <if test="maturity != null" >
+        Maturity,
+      </if>
+      <if test="hasSample != null" >
+        has_sample,
+      </if>
+      <if test="patentTransferForm != null" >
+        patent_transfer_form,
+      </if>
+      <if test="lienceseOthers != null" >
+        liencese_others,
+      </if>
+      <if test="siteRequirements != null" >
+        site_requirements,
+      </if>
+      <if test="personnelRequirements != null" >
+        personnel_requirements,
+      </if>
+      <if test="revenueExpected != null" >
+        revenue_expected,
+      </if>
+      <if test="reviewDate != null" >
+        review_date,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="patentNo != null" >
+        #{patentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="patentType != null" >
+        #{patentType,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="field != null" >
+        #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="patentOwner != null" >
+        #{patentOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="maturity != null" >
+        #{maturity,jdbcType=VARCHAR},
+      </if>
+      <if test="hasSample != null" >
+        #{hasSample,jdbcType=BIT},
+      </if>
+      <if test="patentTransferForm != null" >
+        #{patentTransferForm,jdbcType=VARCHAR},
+      </if>
+      <if test="lienceseOthers != null" >
+        #{lienceseOthers,jdbcType=BIT},
+      </if>
+      <if test="siteRequirements != null" >
+        #{siteRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="personnelRequirements != null" >
+        #{personnelRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="revenueExpected != null" >
+        #{revenueExpected,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewDate != null" >
+        #{reviewDate,jdbcType=DATE},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.trouble.shareresources.pojo.PatentExample" resultType="java.lang.Integer" >
+    select count(*) from patent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update patent
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patentNo != null" >
+        patent_no = #{record.patentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patentType != null" >
+        patent_type = #{record.patentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishDate != null" >
+        publish_date = #{record.publishDate,jdbcType=DATE},
+      </if>
+      <if test="record.field != null" >
+        field = #{record.field,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patentOwner != null" >
+        patent_owner = #{record.patentOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maturity != null" >
+        Maturity = #{record.maturity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hasSample != null" >
+        has_sample = #{record.hasSample,jdbcType=BIT},
+      </if>
+      <if test="record.patentTransferForm != null" >
+        patent_transfer_form = #{record.patentTransferForm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lienceseOthers != null" >
+        liencese_others = #{record.lienceseOthers,jdbcType=BIT},
+      </if>
+      <if test="record.siteRequirements != null" >
+        site_requirements = #{record.siteRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personnelRequirements != null" >
+        personnel_requirements = #{record.personnelRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="record.revenueExpected != null" >
+        revenue_expected = #{record.revenueExpected,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewDate != null" >
+        review_date = #{record.reviewDate,jdbcType=DATE},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update patent
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      patent_no = #{record.patentNo,jdbcType=VARCHAR},
+      patent_type = #{record.patentType,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR},
+      publish_date = #{record.publishDate,jdbcType=DATE},
+      field = #{record.field,jdbcType=VARCHAR},
+      patent_owner = #{record.patentOwner,jdbcType=VARCHAR},
+      Maturity = #{record.maturity,jdbcType=VARCHAR},
+      has_sample = #{record.hasSample,jdbcType=BIT},
+      patent_transfer_form = #{record.patentTransferForm,jdbcType=VARCHAR},
+      liencese_others = #{record.lienceseOthers,jdbcType=BIT},
+      site_requirements = #{record.siteRequirements,jdbcType=VARCHAR},
+      personnel_requirements = #{record.personnelRequirements,jdbcType=VARCHAR},
+      revenue_expected = #{record.revenueExpected,jdbcType=VARCHAR},
+      review_date = #{record.reviewDate,jdbcType=DATE},
+      introduction = #{record.introduction,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update patent
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      patent_no = #{record.patentNo,jdbcType=VARCHAR},
+      patent_type = #{record.patentType,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR},
+      publish_date = #{record.publishDate,jdbcType=DATE},
+      field = #{record.field,jdbcType=VARCHAR},
+      patent_owner = #{record.patentOwner,jdbcType=VARCHAR},
+      Maturity = #{record.maturity,jdbcType=VARCHAR},
+      has_sample = #{record.hasSample,jdbcType=BIT},
+      patent_transfer_form = #{record.patentTransferForm,jdbcType=VARCHAR},
+      liencese_others = #{record.lienceseOthers,jdbcType=BIT},
+      site_requirements = #{record.siteRequirements,jdbcType=VARCHAR},
+      personnel_requirements = #{record.personnelRequirements,jdbcType=VARCHAR},
+      revenue_expected = #{record.revenueExpected,jdbcType=VARCHAR},
+      review_date = #{record.reviewDate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trouble.shareresources.pojo.Patent" >
+    update patent
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="patentNo != null" >
+        patent_no = #{patentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="patentType != null" >
+        patent_type = #{patentType,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        publish_date = #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="field != null" >
+        field = #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="patentOwner != null" >
+        patent_owner = #{patentOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="maturity != null" >
+        Maturity = #{maturity,jdbcType=VARCHAR},
+      </if>
+      <if test="hasSample != null" >
+        has_sample = #{hasSample,jdbcType=BIT},
+      </if>
+      <if test="patentTransferForm != null" >
+        patent_transfer_form = #{patentTransferForm,jdbcType=VARCHAR},
+      </if>
+      <if test="lienceseOthers != null" >
+        liencese_others = #{lienceseOthers,jdbcType=BIT},
+      </if>
+      <if test="siteRequirements != null" >
+        site_requirements = #{siteRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="personnelRequirements != null" >
+        personnel_requirements = #{personnelRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="revenueExpected != null" >
+        revenue_expected = #{revenueExpected,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewDate != null" >
+        review_date = #{reviewDate,jdbcType=DATE},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.trouble.shareresources.pojo.Patent" >
+    update patent
+    set name = #{name,jdbcType=VARCHAR},
+      patent_no = #{patentNo,jdbcType=VARCHAR},
+      patent_type = #{patentType,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=DATE},
+      field = #{field,jdbcType=VARCHAR},
+      patent_owner = #{patentOwner,jdbcType=VARCHAR},
+      Maturity = #{maturity,jdbcType=VARCHAR},
+      has_sample = #{hasSample,jdbcType=BIT},
+      patent_transfer_form = #{patentTransferForm,jdbcType=VARCHAR},
+      liencese_others = #{lienceseOthers,jdbcType=BIT},
+      site_requirements = #{siteRequirements,jdbcType=VARCHAR},
+      personnel_requirements = #{personnelRequirements,jdbcType=VARCHAR},
+      revenue_expected = #{revenueExpected,jdbcType=VARCHAR},
+      review_date = #{reviewDate,jdbcType=DATE},
+      introduction = #{introduction,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trouble.shareresources.pojo.Patent" >
+    update patent
+    set name = #{name,jdbcType=VARCHAR},
+      patent_no = #{patentNo,jdbcType=VARCHAR},
+      patent_type = #{patentType,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=DATE},
+      field = #{field,jdbcType=VARCHAR},
+      patent_owner = #{patentOwner,jdbcType=VARCHAR},
+      Maturity = #{maturity,jdbcType=VARCHAR},
+      has_sample = #{hasSample,jdbcType=BIT},
+      patent_transfer_form = #{patentTransferForm,jdbcType=VARCHAR},
+      liencese_others = #{lienceseOthers,jdbcType=BIT},
+      site_requirements = #{siteRequirements,jdbcType=VARCHAR},
+      personnel_requirements = #{personnelRequirements,jdbcType=VARCHAR},
+      revenue_expected = #{revenueExpected,jdbcType=VARCHAR},
+      review_date = #{reviewDate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

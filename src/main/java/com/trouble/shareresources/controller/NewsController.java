@@ -48,7 +48,7 @@ public class NewsController {
         String content = jsonStr.getString("content");
         String publisher = jsonStr.getString("publisher");
         String pic = jsonStr.getString("pic");
-        News news = new News(title,publisher,new Date(),0,0,"新闻",0,pic,content);
+        News news = new News(title,publisher,new Date(),0,0,"新闻",0,pic,"",content);
         int i = newsService.saveNews(news);
         if (i>0){
             return new ResultType(true,"保存成功");

@@ -31,4 +31,6 @@ public interface UserService {
     User findUserByUserName(String username);
 
     User findUserByTelephone(String telephone);
+
+    int updatePasswordByTelephone(String telephone, String password);
 }

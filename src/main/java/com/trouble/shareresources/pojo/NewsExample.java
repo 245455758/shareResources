@@ -711,6 +711,136 @@ public class NewsExample {
             addCriterion("pic not between", value1, value2, "pic");
             return (Criteria) this;
         }
+
+        public Criteria andSummaryContentIsNull() {
+            addCriterion("summary_content is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentIsNotNull() {
+            addCriterion("summary_content is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentEqualTo(String value) {
+            addCriterion("summary_content =", value, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentNotEqualTo(String value) {
+            addCriterion("summary_content <>", value, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentGreaterThan(String value) {
+            addCriterion("summary_content >", value, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentGreaterThanOrEqualTo(String value) {
+            addCriterion("summary_content >=", value, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentLessThan(String value) {
+            addCriterion("summary_content <", value, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentLessThanOrEqualTo(String value) {
+            addCriterion("summary_content <=", value, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentLike(String value) {
+            addCriterion("summary_content like", value, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentNotLike(String value) {
+            addCriterion("summary_content not like", value, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentIn(List<String> values) {
+            addCriterion("summary_content in", values, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentNotIn(List<String> values) {
+            addCriterion("summary_content not in", values, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentBetween(String value1, String value2) {
+            addCriterion("summary_content between", value1, value2, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andSummaryContentNotBetween(String value1, String value2) {
+            addCriterion("summary_content not between", value1, value2, "summaryContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeIsNull() {
+            addCriterion("check_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeIsNotNull() {
+            addCriterion("check_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeEqualTo(Date value) {
+            addCriterionForJDBCDate("check_time =", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeNotEqualTo(Date value) {
+            addCriterionForJDBCDate("check_time <>", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeGreaterThan(Date value) {
+            addCriterionForJDBCDate("check_time >", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("check_time >=", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeLessThan(Date value) {
+            addCriterionForJDBCDate("check_time <", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("check_time <=", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeIn(List<Date> values) {
+            addCriterionForJDBCDate("check_time in", values, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeNotIn(List<Date> values) {
+            addCriterionForJDBCDate("check_time not in", values, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("check_time between", value1, value2, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("check_time not between", value1, value2, "checkTime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

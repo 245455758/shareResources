@@ -17,15 +17,15 @@ public interface NewsMapper {
 
     int insertSelective(News record);
 
-    int updateReadTimes(Integer id);
-
     List<News> selectByExampleWithBLOBs(NewsExample example);
-
-    List<News> selectByCategoryWithBLOBs(@Param("categoryId") String categoryId);
 
     List<News> selectByExample(NewsExample example);
 
     News selectByPrimaryKey(Integer id);
+
+    int updateStatus(News news);
+
+    int updateReadTimes(int id);
 
     int updateByExampleSelective(@Param("record") News record, @Param("example") NewsExample example);
 
