@@ -21,6 +21,8 @@ public interface PatentMapper {
 
     List<Patent> selectByExample(PatentExample example);
 
+    List<Patent> getAllSummaryPatent();
+
     Patent selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Patent record, @Param("example") PatentExample example);

@@ -19,6 +19,14 @@
     <result column="revenue_expected" property="revenueExpected" jdbcType="VARCHAR" />
     <result column="review_date" property="reviewDate" jdbcType="DATE" />
   </resultMap>
+  <resultMap id="summaryResultMap" type="com.trouble.shareresources.pojo.Patent" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="patent_no" property="patentNo" jdbcType="VARCHAR" />
+    <result column="patent_type" property="patentType" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="publish_date" property="publishDate" jdbcType="DATE" />
+  </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.trouble.shareresources.pojo.Patent" extends="BaseResultMap" >
     <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
   </resultMap>
@@ -103,6 +111,11 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+  </select>
+  <select id="getAllSummaryPatent" resultMap="summaryResultMap">
+    SELECT
+    id,NAME,patent_no,patent_type,price,publish_date
+    FROM patent
   </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.trouble.shareresources.pojo.PatentExample" >
     select
