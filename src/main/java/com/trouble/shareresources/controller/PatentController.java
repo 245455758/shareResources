@@ -41,10 +41,13 @@ public class PatentController {
         String patentNo = jsonStr.getString("patentNo");
         String patenType = jsonStr.getString("patent_type");
         String field = jsonStr.getString("field");
-        Integer pageNo = jsonStr.getInteger("pageNo");
-        Integer pageSize = jsonStr.getInteger("pageSize");
-        PageHelper.startPage(pageNo, pageSize);
-        return patentService.getPatentByCondition(name, patentNo, patenType, field);
+        System.out.println(patenType+","+field);
+//        Integer pageNo = jsonStr.getInteger("pageNo");
+//        Integer pageSize = jsonStr.getInteger("pageSize");
+//        PageHelper.startPage(pageNo, pageSize);
+        List<Patent> patentByCondition = patentService.getPatentByCondition(name, patentNo, patenType, field);
+        System.out.println(patentByCondition);
+        return patentByCondition;
     }
     @RequestMapping("getPatentCountWhenSelect")
     @ResponseBody

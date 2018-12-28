@@ -36,4 +36,6 @@ public interface PatentMapper {
     int updateByPrimaryKeyWithBLOBs(Patent record);
 
     int updateByPrimaryKey(Patent record);
+
+    List<Patent> selectByCondition(Patent record);
 }

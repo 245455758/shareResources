@@ -172,4 +172,27 @@ public class Patent {
     public void setIntroduction(String introduction) {
         this.introduction = introduction == null ? null : introduction.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Patent{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", patentNo='" + patentNo + '\'' +
+                ", patentType='" + patentType + '\'' +
+                ", price='" + price + '\'' +
+                ", publishDate=" + publishDate +
+                ", field='" + field + '\'' +
+                ", patentOwner='" + patentOwner + '\'' +
+                ", maturity='" + maturity + '\'' +
+                ", hasSample=" + hasSample +
+                ", patentTransferForm='" + patentTransferForm + '\'' +
+                ", lienceseOthers=" + lienceseOthers +
+                ", siteRequirements='" + siteRequirements + '\'' +
+                ", personnelRequirements='" + personnelRequirements + '\'' +
+                ", revenueExpected='" + revenueExpected + '\'' +
+                ", reviewDate=" + reviewDate +
+                ", introduction='" + introduction + '\'' +
+                '}';
+    }
 }

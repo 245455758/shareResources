@@ -19,6 +19,12 @@
     <result column="revenue_expected" property="revenueExpected" jdbcType="VARCHAR" />
     <result column="review_date" property="reviewDate" jdbcType="DATE" />
   </resultMap>
+  <resultMap id="ConditionMap" type="com.trouble.shareresources.pojo.Patent" >
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="patent_no" property="patentNo" jdbcType="VARCHAR" />
+    <result column="patent_type" property="patentType" jdbcType="VARCHAR" />
+    <result column="field" property="field" jdbcType="VARCHAR" />
+  </resultMap>
   <resultMap id="summaryResultMap" type="com.trouble.shareresources.pojo.Patent" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -112,6 +118,25 @@
       order by ${orderByClause}
     </if>
   </select>
+    <select id="selectByCondition" resultMap="summaryResultMap" parameterType="com.trouble.shareresources.pojo.Patent">
+        SELECT
+          id,NAME,patent_no,patent_type,price,publish_date
+        FROM patent
+        <where>
+            <if test="name != null and name != ''">
+               and  name like '%${name}%'
+            </if>
+            <if test="patentNo != null and patentNo != ''">
+               and  patent_no like  '%${patentNo}%'
+            </if>
+            <if test="patentType != null and patentType != ''">
+               and patent_type = '${patentType}'
+            </if>
+            <if test="field != null and field != ''">
+               and  field = '${field}'
+            </if>
+        </where>
+    </select>
   <select id="getAllSummaryPatent" resultMap="summaryResultMap">
     SELECT
     id,NAME,patent_no,patent_type,price,publish_date
