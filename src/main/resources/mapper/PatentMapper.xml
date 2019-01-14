@@ -118,6 +118,25 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="countByCondition" resultType="java.lang.Integer" parameterType="com.trouble.shareresources.pojo.Patent">
+    SELECT
+    count(*)
+    FROM patent
+    <where>
+      <if test="name != null and name != ''">
+        and  name like '%${name}%'
+      </if>
+      <if test="patentNo != null and patentNo != ''">
+        and  patent_no like  '%${patentNo}%'
+      </if>
+      <if test="patentType != null and patentType != ''">
+        and patent_type = '${patentType}'
+      </if>
+      <if test="field != null and field != ''">
+        and  field = '${field}'
+      </if>
+    </where>
+  </select>
     <select id="selectByCondition" resultMap="summaryResultMap" parameterType="com.trouble.shareresources.pojo.Patent">
         SELECT
           id,NAME,patent_no,patent_type,price,publish_date

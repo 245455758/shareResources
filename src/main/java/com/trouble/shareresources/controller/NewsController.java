@@ -22,10 +22,16 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
+    //TODO 不知道哪里调用了
     @RequestMapping("getAllSummary")
     @ResponseBody
-    public List<News> getAllNewsSummary(){
-        return newsService.getAllNews();
+    public List<News> getAllNewsSummary(@RequestBody String str){
+        JSONObject jsonStr = JSON.parseObject(str);
+        List<News> news = newsService.getAllSummaryNews(jsonStr.getString("date"));
+        for (News oneNews:news) {
+            oneNews.setStatus(oneNews.getId());
+        }
+        return news;
     }
 
     @RequestMapping("getDetailNews")

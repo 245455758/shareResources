@@ -14,6 +14,16 @@
     <result column="summary_content" property="summaryContent" jdbcType="VARCHAR" />
     <result column="check_time" property="checkTime" jdbcType="DATE" />
   </resultMap>
+  <resultMap id="SummaryMap" type="com.trouble.shareresources.pojo.News" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="publisher" property="publisher" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="DATE" />
+    <result column="isRecommend" property="isrecommend" jdbcType="INTEGER" />
+    <result column="catelogue" property="catelogue" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="summary_content" property="summaryContent" jdbcType="VARCHAR" />
+  </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.trouble.shareresources.pojo.News" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
@@ -111,6 +121,13 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+  </select>
+  <select id="getAllSummaryNewsByDate" resultMap="SummaryMap" parameterType="java.lang.String">
+    SELECT
+       id,title,publisher,time,isRecommend,catelogue,summary_content,status
+    FROM
+    `news`
+    WHERE  DATE_FORMAT(TIME,'%Y%m') = #{date}
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.trouble.shareresources.mapper.CopyrightMapper" >
+  <resultMap id="BaseResultMap" type="com.trouble.shareresources.pojo.Copyright" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="publish_date" property="publishDate" jdbcType="DATE" />
+    <result column="copyright_owner" property="copyrightOwner" jdbcType="VARCHAR" />
+    <result column="transfer_form" property="transferForm" jdbcType="VARCHAR" />
+    <result column="license_others" property="licenseOthers" jdbcType="BIT" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="SummaryMap" type="com.trouble.shareresources.pojo.Copyright" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="publish_date" property="publishDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, number, category, price, publish_date, copyright_owner, transfer_form, 
+    license_others, introduction
+  </sql>
+  <select id="selectSummaries" resultMap="SummaryMap">
+    SELECT
+    id,name,number,category,price,publish_date
+    from copyright
+  </select>
+  <select id="getCopyrightsWhenSelection" resultMap="SummaryMap" parameterType="com.trouble.shareresources.pojo.Copyright">
+    SELECT
+    id,name,number,category,price,publish_date
+    FROM copyright
+    <where>
+      <if test="name != null and name != ''">
+        and  name like '%${name}%'
+      </if>
+      <if test="number != null and number != ''">
+        and  number like  '%${number}%'
+      </if>
+      <if test="category != null and category != ''">
+        and category = '${category}'
+      </if>
+    </where>
+  </select>
+  <select id="selectCountWhenSelection" resultType="java.lang.Integer" parameterType="com.trouble.shareresources.pojo.Copyright">
+    SELECT
+    count(*)
+    FROM copyright
+    <where>
+      <if test="name != null and name != ''">
+        and  name like '%${name}%'
+      </if>
+      <if test="number != null and number != ''">
+        and  number like  '%${number}%'
+      </if>
+      <if test="category != null and category != ''">
+        and category = '${category}'
+      </if>
+    </where>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.trouble.shareresources.pojo.CopyrightExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from copyright
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from copyright
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from copyright
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.trouble.shareresources.pojo.CopyrightExample" >
+    delete from copyright
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.trouble.shareresources.pojo.Copyright" >
+    insert into copyright (id, name, number, 
+      category, price, publish_date, 
+      copyright_owner, transfer_form, license_others, 
+      introduction)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{publishDate,jdbcType=DATE}, 
+      #{copyrightOwner,jdbcType=VARCHAR}, #{transferForm,jdbcType=VARCHAR}, #{licenseOthers,jdbcType=BIT}, 
+      #{introduction,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.trouble.shareresources.pojo.Copyright" >
+    insert into copyright
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="publishDate != null" >
+        publish_date,
+      </if>
+      <if test="copyrightOwner != null" >
+        copyright_owner,
+      </if>
+      <if test="transferForm != null" >
+        transfer_form,
+      </if>
+      <if test="licenseOthers != null" >
+        license_others,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="copyrightOwner != null" >
+        #{copyrightOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="transferForm != null" >
+        #{transferForm,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseOthers != null" >
+        #{licenseOthers,jdbcType=BIT},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.trouble.shareresources.pojo.CopyrightExample" resultType="java.lang.Integer" >
+    select count(*) from copyright
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update copyright
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishDate != null" >
+        publish_date = #{record.publishDate,jdbcType=DATE},
+      </if>
+      <if test="record.copyrightOwner != null" >
+        copyright_owner = #{record.copyrightOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferForm != null" >
+        transfer_form = #{record.transferForm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseOthers != null" >
+        license_others = #{record.licenseOthers,jdbcType=BIT},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update copyright
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR},
+      publish_date = #{record.publishDate,jdbcType=DATE},
+      copyright_owner = #{record.copyrightOwner,jdbcType=VARCHAR},
+      transfer_form = #{record.transferForm,jdbcType=VARCHAR},
+      license_others = #{record.licenseOthers,jdbcType=BIT},
+      introduction = #{record.introduction,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trouble.shareresources.pojo.Copyright" >
+    update copyright
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        publish_date = #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="copyrightOwner != null" >
+        copyright_owner = #{copyrightOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="transferForm != null" >
+        transfer_form = #{transferForm,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseOthers != null" >
+        license_others = #{licenseOthers,jdbcType=BIT},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trouble.shareresources.pojo.Copyright" >
+    update copyright
+    set name = #{name,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=DATE},
+      copyright_owner = #{copyrightOwner,jdbcType=VARCHAR},
+      transfer_form = #{transferForm,jdbcType=VARCHAR},
+      license_others = #{licenseOthers,jdbcType=BIT},
+      introduction = #{introduction,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

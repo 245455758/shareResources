@@ -13,4 +13,6 @@ public interface PatentService {
     int getPatentCountWhenSelect(String name, String patentNo, String patenType, String field);
 
     List<Patent> getPatentByCondition(String name, String patentNo, String patenType, String field);
+
+    Patent getPatentById(Integer id);
 }

@@ -38,4 +38,6 @@ public interface PatentMapper {
     int updateByPrimaryKey(Patent record);
 
     List<Patent> selectByCondition(Patent record);
+
+    int countByCondition(Patent patent);
 }

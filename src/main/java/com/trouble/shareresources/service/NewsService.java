@@ -12,7 +12,7 @@ public interface NewsService {
 
     int saveNews(News news);
 
-    List<News> getAllNews();
+    List<News> getAllSummaryNews(String date);
 
     List<News> findNewsByCategory(String category);
 

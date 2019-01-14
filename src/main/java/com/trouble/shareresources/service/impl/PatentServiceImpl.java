@@ -27,13 +27,21 @@ public class PatentServiceImpl implements PatentService {
 
     @Override
     public int getPatentCountWhenSelect(String name, String patentNo, String patenType, String field) {
-        PatentExample example = new PatentExample();
-        PatentExample.Criteria criteria = example.createCriteria();
-        if(field!=null) criteria.andFieldEqualTo(field);
-        if(name!=null) criteria.andNameLike(name);
-        if(patentNo!=null) criteria.andPatentNoLike(patentNo);
-        if(patenType!=null) criteria.andPatentTypeEqualTo(patenType);
-        return patentMapper.countByExample(example);
+        Patent patent = new Patent();
+        if(field!=null&&!"".equals(field)) {
+            patent.setField(field.trim());
+        }
+        if(name!=null&&!"".equals(name)){
+            patent.setName(name);
+        }
+        if(patentNo!=null&&!"".equals(patentNo)){
+            patent.setPatentNo(patentNo);
+        }
+        if(patenType!=null&&!"".equals(patenType)){
+            patent.setPatentType(patenType);
+        }
+
+        return patentMapper.countByCondition(patent);
     }
 
     @Override
@@ -51,8 +59,12 @@ public class PatentServiceImpl implements PatentService {
         if(patenType!=null&&!"".equals(patenType)){
             patent.setPatentType(patenType);
         }
-//        LogFactory.useLog4JLogging();
         return patentMapper.selectByCondition(patent);
+    }
+
+    @Override
+    public Patent getPatentById(Integer id) {
+        return patentMapper.selectByPrimaryKey(id);
     }
 
 }

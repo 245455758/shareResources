@@ -31,11 +31,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<News> getAllNews() {
-        NewsExample example = new NewsExample();
-        NewsExample.Criteria criteria = example.createCriteria();
-        criteria.andStatusEqualTo(1);
-        return newsMapper.selectByExample(example);
+    public List<News> getAllSummaryNews(String date) {
+        return newsMapper.getAllSummaryNewsByDate(date);
     }
 
     @Override
