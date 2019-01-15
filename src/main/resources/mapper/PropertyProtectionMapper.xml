@@ -221,7 +221,7 @@
         </where>
     </select>
     <select id="selectCountWhenSelection" resultType="java.lang.Integer"
-            parameterType="com.trouble.shareresources.pojo.PropertyProtectionExample">
+            parameterType="com.trouble.shareresources.entity.PropertyProtectionEntity">
         SELECT
         count(*)
         from property_protection
