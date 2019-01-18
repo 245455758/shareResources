@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.trouble.shareresources.mapper.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.trouble.shareresources.pojo.Course" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="teachers" property="teachers" jdbcType="VARCHAR" />
+    <result column="abstract_introduction" property="abstractIntroduction" jdbcType="VARCHAR" />
+    <result column="participation" property="participation" jdbcType="INTEGER" />
+    <result column="arrangement" property="arrangement" jdbcType="VARCHAR" />
+    <result column="introduction_pic" property="introductionPic" jdbcType="VARCHAR" />
+    <result column="introduction_video" property="introductionVideo" jdbcType="VARCHAR" />
+    <result column="prerequisite_knowledge" property="prerequisiteKnowledge" jdbcType="VARCHAR" />
+    <result column="certificate_requirements" property="certificateRequirements" jdbcType="VARCHAR" />
+    <result column="reference_materials" property="referenceMaterials" jdbcType="VARCHAR" />
+    <result column="course_aim" property="courseAim" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="SummaryResultMap" type="com.trouble.shareresources.pojo.Course" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="teachers" property="teachers" jdbcType="VARCHAR" />
+    <result column="abstract_introduction" property="abstractIntroduction" jdbcType="VARCHAR" />
+    <result column="participation" property="participation" jdbcType="INTEGER" />
+    <result column="introduction_pic" property="introductionPic" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.trouble.shareresources.pojo.CourseWithBLOBs" extends="BaseResultMap" >
+    <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+    <result column="course_outline" property="courseOutline" jdbcType="LONGVARCHAR" />
+    <result column="common_questions" property="commonQuestions" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, course_name, school, teachers, abstract_introduction, participation, arrangement, 
+    introduction_pic, introduction_video, prerequisite_knowledge, certificate_requirements, 
+    reference_materials, course_aim
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduction, course_outline, common_questions
+  </sql>
+  <select id="selectSummaryInfo" resultMap="SummaryResultMap">
+    select
+    id,course_name,school,teachers,abstract_introduction,participation,introduction_pic
+    from course
+  </select>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.trouble.shareresources.pojo.CourseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.trouble.shareresources.pojo.CourseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.trouble.shareresources.pojo.CourseExample" >
+    delete from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.trouble.shareresources.pojo.CourseWithBLOBs" >
+    insert into course (id, course_name, school, 
+      teachers, abstract_introduction, participation, 
+      arrangement, introduction_pic, introduction_video, 
+      prerequisite_knowledge, certificate_requirements, 
+      reference_materials, course_aim, introduction, 
+      course_outline, common_questions)
+    values (#{id,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
+      #{teachers,jdbcType=VARCHAR}, #{abstractIntroduction,jdbcType=VARCHAR}, #{participation,jdbcType=INTEGER}, 
+      #{arrangement,jdbcType=VARCHAR}, #{introductionPic,jdbcType=VARCHAR}, #{introductionVideo,jdbcType=VARCHAR}, 
+      #{prerequisiteKnowledge,jdbcType=VARCHAR}, #{certificateRequirements,jdbcType=VARCHAR}, 
+      #{referenceMaterials,jdbcType=VARCHAR}, #{courseAim,jdbcType=VARCHAR}, #{introduction,jdbcType=LONGVARCHAR}, 
+      #{courseOutline,jdbcType=LONGVARCHAR}, #{commonQuestions,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.trouble.shareresources.pojo.CourseWithBLOBs" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="teachers != null" >
+        teachers,
+      </if>
+      <if test="abstractIntroduction != null" >
+        abstract_introduction,
+      </if>
+      <if test="participation != null" >
+        participation,
+      </if>
+      <if test="arrangement != null" >
+        arrangement,
+      </if>
+      <if test="introductionPic != null" >
+        introduction_pic,
+      </if>
+      <if test="introductionVideo != null" >
+        introduction_video,
+      </if>
+      <if test="prerequisiteKnowledge != null" >
+        prerequisite_knowledge,
+      </if>
+      <if test="certificateRequirements != null" >
+        certificate_requirements,
+      </if>
+      <if test="referenceMaterials != null" >
+        reference_materials,
+      </if>
+      <if test="courseAim != null" >
+        course_aim,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="courseOutline != null" >
+        course_outline,
+      </if>
+      <if test="commonQuestions != null" >
+        common_questions,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="teachers != null" >
+        #{teachers,jdbcType=VARCHAR},
+      </if>
+      <if test="abstractIntroduction != null" >
+        #{abstractIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="participation != null" >
+        #{participation,jdbcType=INTEGER},
+      </if>
+      <if test="arrangement != null" >
+        #{arrangement,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionPic != null" >
+        #{introductionPic,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionVideo != null" >
+        #{introductionVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="prerequisiteKnowledge != null" >
+        #{prerequisiteKnowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateRequirements != null" >
+        #{certificateRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="referenceMaterials != null" >
+        #{referenceMaterials,jdbcType=VARCHAR},
+      </if>
+      <if test="courseAim != null" >
+        #{courseAim,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="courseOutline != null" >
+        #{courseOutline,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="commonQuestions != null" >
+        #{commonQuestions,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.trouble.shareresources.pojo.CourseExample" resultType="java.lang.Integer" >
+    select count(*) from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update course
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseName != null" >
+        course_name = #{record.courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.school != null" >
+        school = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachers != null" >
+        teachers = #{record.teachers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abstractIntroduction != null" >
+        abstract_introduction = #{record.abstractIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.participation != null" >
+        participation = #{record.participation,jdbcType=INTEGER},
+      </if>
+      <if test="record.arrangement != null" >
+        arrangement = #{record.arrangement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introductionPic != null" >
+        introduction_pic = #{record.introductionPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introductionVideo != null" >
+        introduction_video = #{record.introductionVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prerequisiteKnowledge != null" >
+        prerequisite_knowledge = #{record.prerequisiteKnowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificateRequirements != null" >
+        certificate_requirements = #{record.certificateRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referenceMaterials != null" >
+        reference_materials = #{record.referenceMaterials,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseAim != null" >
+        course_aim = #{record.courseAim,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.courseOutline != null" >
+        course_outline = #{record.courseOutline,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.commonQuestions != null" >
+        common_questions = #{record.commonQuestions,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update course
+    set id = #{record.id,jdbcType=INTEGER},
+      course_name = #{record.courseName,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=VARCHAR},
+      teachers = #{record.teachers,jdbcType=VARCHAR},
+      abstract_introduction = #{record.abstractIntroduction,jdbcType=VARCHAR},
+      participation = #{record.participation,jdbcType=INTEGER},
+      arrangement = #{record.arrangement,jdbcType=VARCHAR},
+      introduction_pic = #{record.introductionPic,jdbcType=VARCHAR},
+      introduction_video = #{record.introductionVideo,jdbcType=VARCHAR},
+      prerequisite_knowledge = #{record.prerequisiteKnowledge,jdbcType=VARCHAR},
+      certificate_requirements = #{record.certificateRequirements,jdbcType=VARCHAR},
+      reference_materials = #{record.referenceMaterials,jdbcType=VARCHAR},
+      course_aim = #{record.courseAim,jdbcType=VARCHAR},
+      introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      course_outline = #{record.courseOutline,jdbcType=LONGVARCHAR},
+      common_questions = #{record.commonQuestions,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update course
+    set id = #{record.id,jdbcType=INTEGER},
+      course_name = #{record.courseName,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=VARCHAR},
+      teachers = #{record.teachers,jdbcType=VARCHAR},
+      abstract_introduction = #{record.abstractIntroduction,jdbcType=VARCHAR},
+      participation = #{record.participation,jdbcType=INTEGER},
+      arrangement = #{record.arrangement,jdbcType=VARCHAR},
+      introduction_pic = #{record.introductionPic,jdbcType=VARCHAR},
+      introduction_video = #{record.introductionVideo,jdbcType=VARCHAR},
+      prerequisite_knowledge = #{record.prerequisiteKnowledge,jdbcType=VARCHAR},
+      certificate_requirements = #{record.certificateRequirements,jdbcType=VARCHAR},
+      reference_materials = #{record.referenceMaterials,jdbcType=VARCHAR},
+      course_aim = #{record.courseAim,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.trouble.shareresources.pojo.CourseWithBLOBs" >
+    update course
+    <set >
+      <if test="courseName != null" >
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="teachers != null" >
+        teachers = #{teachers,jdbcType=VARCHAR},
+      </if>
+      <if test="abstractIntroduction != null" >
+        abstract_introduction = #{abstractIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="participation != null" >
+        participation = #{participation,jdbcType=INTEGER},
+      </if>
+      <if test="arrangement != null" >
+        arrangement = #{arrangement,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionPic != null" >
+        introduction_pic = #{introductionPic,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionVideo != null" >
+        introduction_video = #{introductionVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="prerequisiteKnowledge != null" >
+        prerequisite_knowledge = #{prerequisiteKnowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateRequirements != null" >
+        certificate_requirements = #{certificateRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="referenceMaterials != null" >
+        reference_materials = #{referenceMaterials,jdbcType=VARCHAR},
+      </if>
+      <if test="courseAim != null" >
+        course_aim = #{courseAim,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="courseOutline != null" >
+        course_outline = #{courseOutline,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="commonQuestions != null" >
+        common_questions = #{commonQuestions,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.trouble.shareresources.pojo.CourseWithBLOBs" >
+    update course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      teachers = #{teachers,jdbcType=VARCHAR},
+      abstract_introduction = #{abstractIntroduction,jdbcType=VARCHAR},
+      participation = #{participation,jdbcType=INTEGER},
+      arrangement = #{arrangement,jdbcType=VARCHAR},
+      introduction_pic = #{introductionPic,jdbcType=VARCHAR},
+      introduction_video = #{introductionVideo,jdbcType=VARCHAR},
+      prerequisite_knowledge = #{prerequisiteKnowledge,jdbcType=VARCHAR},
+      certificate_requirements = #{certificateRequirements,jdbcType=VARCHAR},
+      reference_materials = #{referenceMaterials,jdbcType=VARCHAR},
+      course_aim = #{courseAim,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=LONGVARCHAR},
+      course_outline = #{courseOutline,jdbcType=LONGVARCHAR},
+      common_questions = #{commonQuestions,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.trouble.shareresources.pojo.Course" >
+    update course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      teachers = #{teachers,jdbcType=VARCHAR},
+      abstract_introduction = #{abstractIntroduction,jdbcType=VARCHAR},
+      participation = #{participation,jdbcType=INTEGER},
+      arrangement = #{arrangement,jdbcType=VARCHAR},
+      introduction_pic = #{introductionPic,jdbcType=VARCHAR},
+      introduction_video = #{introductionVideo,jdbcType=VARCHAR},
+      prerequisite_knowledge = #{prerequisiteKnowledge,jdbcType=VARCHAR},
+      certificate_requirements = #{certificateRequirements,jdbcType=VARCHAR},
+      reference_materials = #{referenceMaterials,jdbcType=VARCHAR},
+      course_aim = #{courseAim,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

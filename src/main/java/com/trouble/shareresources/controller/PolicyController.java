@@ -41,7 +41,10 @@ public class PolicyController {
     public Policy getPolicyById(@RequestBody String str){
         JSONObject jsonStr = JSON.parseObject(str);
         Integer id = jsonStr.getInteger("id");
-        return policyService.getPokicyById(id);
+        Policy pokicyById = policyService.getPokicyById(id);
+        pokicyById.setReadTimes(pokicyById.getReadTimes()+1);
+        policyService.updateReadtimes(pokicyById);
+        return pokicyById;
     }
 
     @RequestMapping("getNumWhenSelection")

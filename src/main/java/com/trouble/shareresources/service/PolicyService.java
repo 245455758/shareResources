@@ -16,4 +16,6 @@ public interface PolicyService {
     int getNumWhenSelection(String title, String publisher, String fromDate, String toDate);
 
     List<PropertyProtection> getPolicysWhenSelection(String title, String publisher, String fromDate, String toDate);
+
+    void updateReadtimes(Policy pokicyById);
 }

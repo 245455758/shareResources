@@ -51,4 +51,9 @@ public class PolicyServiceImpl implements PolicyService {
         if (toDate!=null && !"".equals(toDate)) policySelectionEntity.setToDate(toDate);
         return policyMapper.selectWhenSelection(policySelectionEntity);
     }
+
+    @Override
+    public void updateReadtimes(Policy pokicyById) {
+        policyMapper.updateByPrimaryKey(pokicyById);
+    }
 }
