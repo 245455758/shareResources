@@ -9,4 +9,8 @@ public interface CourseService {
     public int getAllCoursesNum();
 
     List<Course> getCoursesSummary();
+
+    List<Course> getRecommendCoursesSummary();
+
+    Course getCourseById(Integer id);
 }

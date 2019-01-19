@@ -37,4 +37,6 @@ public interface CourseMapper {
     int updateByPrimaryKey(Course record);
 
     List<Course> selectSummaryInfo();
+
+    List<Course> selectRecommendSummary();
 }

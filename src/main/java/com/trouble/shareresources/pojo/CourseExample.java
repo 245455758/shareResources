@@ -993,6 +993,66 @@ public class CourseExample {
             addCriterion("course_aim not between", value1, value2, "courseAim");
             return (Criteria) this;
         }
+
+        public Criteria andIsrecommendIsNull() {
+            addCriterion("isRecommend is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrecommendIsNotNull() {
+            addCriterion("isRecommend is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrecommendEqualTo(Boolean value) {
+            addCriterion("isRecommend =", value, "isrecommend");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrecommendNotEqualTo(Boolean value) {
+            addCriterion("isRecommend <>", value, "isrecommend");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrecommendGreaterThan(Boolean value) {
+            addCriterion("isRecommend >", value, "isrecommend");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrecommendGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("isRecommend >=", value, "isrecommend");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrecommendLessThan(Boolean value) {
+            addCriterion("isRecommend <", value, "isrecommend");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrecommendLessThanOrEqualTo(Boolean value) {
+            addCriterion("isRecommend <=", value, "isrecommend");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrecommendIn(List<Boolean> values) {
+            addCriterion("isRecommend in", values, "isrecommend");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrecommendNotIn(List<Boolean> values) {
+            addCriterion("isRecommend not in", values, "isrecommend");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrecommendBetween(Boolean value1, Boolean value2) {
+            addCriterion("isRecommend between", value1, value2, "isrecommend");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsrecommendNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("isRecommend not between", value1, value2, "isrecommend");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -27,6 +27,8 @@ public class Course {
 
     private String courseAim;
 
+    private Boolean isrecommend;
+
     public Integer getId() {
         return id;
     }
@@ -129,5 +131,13 @@ public class Course {
 
     public void setCourseAim(String courseAim) {
         this.courseAim = courseAim == null ? null : courseAim.trim();
+    }
+
+    public Boolean getIsrecommend() {
+        return isrecommend;
+    }
+
+    public void setIsrecommend(Boolean isrecommend) {
+        this.isrecommend = isrecommend;
     }
 }

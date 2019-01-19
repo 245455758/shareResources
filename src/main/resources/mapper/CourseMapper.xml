@@ -15,6 +15,7 @@
     <result column="certificate_requirements" property="certificateRequirements" jdbcType="VARCHAR" />
     <result column="reference_materials" property="referenceMaterials" jdbcType="VARCHAR" />
     <result column="course_aim" property="courseAim" jdbcType="VARCHAR" />
+    <result column="isRecommend" property="isrecommend" jdbcType="BIT" />
   </resultMap>
   <resultMap id="SummaryResultMap" type="com.trouble.shareresources.pojo.Course" >
     <id column="id" property="id" jdbcType="INTEGER" />
@@ -24,6 +25,10 @@
     <result column="abstract_introduction" property="abstractIntroduction" jdbcType="VARCHAR" />
     <result column="participation" property="participation" jdbcType="INTEGER" />
     <result column="introduction_pic" property="introductionPic" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="RecommendResultMap" type="com.trouble.shareresources.pojo.Course" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.trouble.shareresources.pojo.CourseWithBLOBs" extends="BaseResultMap" >
     <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
@@ -91,15 +96,23 @@
   <sql id="Base_Column_List" >
     id, course_name, school, teachers, abstract_introduction, participation, arrangement, 
     introduction_pic, introduction_video, prerequisite_knowledge, certificate_requirements, 
-    reference_materials, course_aim
+    reference_materials, course_aim, isRecommend
   </sql>
   <sql id="Blob_Column_List" >
     introduction, course_outline, common_questions
   </sql>
+  <select id="selectRecommendSummary" resultMap="RecommendResultMap">
+    SELECT
+    id,course_name
+    FROM course
+    WHERE isRecommend=1
+    ORDER BY participation DESC
+    LIMIT 6;
+  </select>
   <select id="selectSummaryInfo" resultMap="SummaryResultMap">
-    select
+    SELECT
     id,course_name,school,teachers,abstract_introduction,participation,introduction_pic
-    from course
+    FROM course
   </select>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.trouble.shareresources.pojo.CourseExample" >
     select
@@ -154,14 +167,16 @@
       teachers, abstract_introduction, participation, 
       arrangement, introduction_pic, introduction_video, 
       prerequisite_knowledge, certificate_requirements, 
-      reference_materials, course_aim, introduction, 
-      course_outline, common_questions)
+      reference_materials, course_aim, isRecommend, 
+      introduction, course_outline, common_questions
+      )
     values (#{id,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
       #{teachers,jdbcType=VARCHAR}, #{abstractIntroduction,jdbcType=VARCHAR}, #{participation,jdbcType=INTEGER}, 
       #{arrangement,jdbcType=VARCHAR}, #{introductionPic,jdbcType=VARCHAR}, #{introductionVideo,jdbcType=VARCHAR}, 
       #{prerequisiteKnowledge,jdbcType=VARCHAR}, #{certificateRequirements,jdbcType=VARCHAR}, 
-      #{referenceMaterials,jdbcType=VARCHAR}, #{courseAim,jdbcType=VARCHAR}, #{introduction,jdbcType=LONGVARCHAR}, 
-      #{courseOutline,jdbcType=LONGVARCHAR}, #{commonQuestions,jdbcType=LONGVARCHAR})
+      #{referenceMaterials,jdbcType=VARCHAR}, #{courseAim,jdbcType=VARCHAR}, #{isrecommend,jdbcType=BIT}, 
+      #{introduction,jdbcType=LONGVARCHAR}, #{courseOutline,jdbcType=LONGVARCHAR}, #{commonQuestions,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.trouble.shareresources.pojo.CourseWithBLOBs" >
     insert into course
@@ -204,6 +219,9 @@
       </if>
       <if test="courseAim != null" >
         course_aim,
+      </if>
+      <if test="isrecommend != null" >
+        isRecommend,
       </if>
       <if test="introduction != null" >
         introduction,
@@ -254,6 +272,9 @@
       </if>
       <if test="courseAim != null" >
         #{courseAim,jdbcType=VARCHAR},
+      </if>
+      <if test="isrecommend != null" >
+        #{isrecommend,jdbcType=BIT},
       </if>
       <if test="introduction != null" >
         #{introduction,jdbcType=LONGVARCHAR},
@@ -314,6 +335,9 @@
       <if test="record.courseAim != null" >
         course_aim = #{record.courseAim,jdbcType=VARCHAR},
       </if>
+      <if test="record.isrecommend != null" >
+        isRecommend = #{record.isrecommend,jdbcType=BIT},
+      </if>
       <if test="record.introduction != null" >
         introduction = #{record.introduction,jdbcType=LONGVARCHAR},
       </if>
@@ -343,6 +367,7 @@
       certificate_requirements = #{record.certificateRequirements,jdbcType=VARCHAR},
       reference_materials = #{record.referenceMaterials,jdbcType=VARCHAR},
       course_aim = #{record.courseAim,jdbcType=VARCHAR},
+      isRecommend = #{record.isrecommend,jdbcType=BIT},
       introduction = #{record.introduction,jdbcType=LONGVARCHAR},
       course_outline = #{record.courseOutline,jdbcType=LONGVARCHAR},
       common_questions = #{record.commonQuestions,jdbcType=LONGVARCHAR}
@@ -364,7 +389,8 @@
       prerequisite_knowledge = #{record.prerequisiteKnowledge,jdbcType=VARCHAR},
       certificate_requirements = #{record.certificateRequirements,jdbcType=VARCHAR},
       reference_materials = #{record.referenceMaterials,jdbcType=VARCHAR},
-      course_aim = #{record.courseAim,jdbcType=VARCHAR}
+      course_aim = #{record.courseAim,jdbcType=VARCHAR},
+      isRecommend = #{record.isrecommend,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -408,6 +434,9 @@
       <if test="courseAim != null" >
         course_aim = #{courseAim,jdbcType=VARCHAR},
       </if>
+      <if test="isrecommend != null" >
+        isRecommend = #{isrecommend,jdbcType=BIT},
+      </if>
       <if test="introduction != null" >
         introduction = #{introduction,jdbcType=LONGVARCHAR},
       </if>
@@ -434,6 +463,7 @@
       certificate_requirements = #{certificateRequirements,jdbcType=VARCHAR},
       reference_materials = #{referenceMaterials,jdbcType=VARCHAR},
       course_aim = #{courseAim,jdbcType=VARCHAR},
+      isRecommend = #{isrecommend,jdbcType=BIT},
       introduction = #{introduction,jdbcType=LONGVARCHAR},
       course_outline = #{courseOutline,jdbcType=LONGVARCHAR},
       common_questions = #{commonQuestions,jdbcType=LONGVARCHAR}
@@ -452,7 +482,8 @@
       prerequisite_knowledge = #{prerequisiteKnowledge,jdbcType=VARCHAR},
       certificate_requirements = #{certificateRequirements,jdbcType=VARCHAR},
       reference_materials = #{referenceMaterials,jdbcType=VARCHAR},
-      course_aim = #{courseAim,jdbcType=VARCHAR}
+      course_aim = #{courseAim,jdbcType=VARCHAR},
+      isRecommend = #{isrecommend,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

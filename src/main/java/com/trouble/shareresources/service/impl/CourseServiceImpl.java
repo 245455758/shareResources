@@ -25,4 +25,14 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getCoursesSummary() {
         return courseMapper.selectSummaryInfo();
     }
+
+    @Override
+    public List<Course> getRecommendCoursesSummary() {
+        return courseMapper.selectRecommendSummary();
+    }
+
+    @Override
+    public Course getCourseById(Integer id) {
+        return courseMapper.selectByPrimaryKey(id);
+    }
 }

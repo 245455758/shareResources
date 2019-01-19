@@ -33,5 +33,18 @@ public class CourseController {
         PageHelper.startPage(pageNo, pageSize);
         return courseService.getCoursesSummary();
     }
+    @RequestMapping("getCourseRecommendSummary")
+    @ResponseBody
+    public List<Course> getCourseRecommendSummary(){
+        return courseService.getRecommendCoursesSummary();
+    }
+
+    @RequestMapping("getCourseById")
+    @ResponseBody
+    public Course getCourseById(@RequestBody String str){
+        JSONObject jsonStr = JSON.parseObject(str);
+        Integer id = jsonStr.getInteger("id");
+        return courseService.getCourseById(id);
+    }
 
 }
