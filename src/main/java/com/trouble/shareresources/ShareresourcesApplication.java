@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement//开启事务管理
-@ComponentScan(basePackages = {"com.trouble.shareresources.service","com.trouble.shareresources.controller"})
+@ComponentScan(basePackages = {"com.trouble.shareresources.service","com.trouble.shareresources.controller","com.trouble.shareresources.config"})
 @MapperScan("com.trouble.shareresources.mapper")
 public class ShareresourcesApplication extends SpringBootServletInitializer {
 

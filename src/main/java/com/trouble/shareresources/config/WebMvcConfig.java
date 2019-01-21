@@ -19,5 +19,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/videos/**").addResourceLocations("file///C:\\course_videos\\");
     }
 
+
 }
 

@@ -27,7 +27,6 @@ public class FileController {
             , HttpServletRequest request){
         System.out.println("进入Filesave");
         try{
-            //TODO 文件存储路径的问题
             String path = PhotoUtil.saveFile(file,request);
             return new ResultType(true,path);
         }catch(Exception e){

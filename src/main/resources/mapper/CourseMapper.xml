@@ -25,6 +25,7 @@
     <result column="abstract_introduction" property="abstractIntroduction" jdbcType="VARCHAR" />
     <result column="participation" property="participation" jdbcType="INTEGER" />
     <result column="introduction_pic" property="introductionPic" jdbcType="VARCHAR" />
+    <result column="introduction_video" property="introductionVideo" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="RecommendResultMap" type="com.trouble.shareresources.pojo.Course" >
     <id column="id" property="id" jdbcType="INTEGER" />
@@ -111,7 +112,7 @@
   </select>
   <select id="selectSummaryInfo" resultMap="SummaryResultMap">
     SELECT
-    id,course_name,school,teachers,abstract_introduction,participation,introduction_pic
+    id,course_name,school,teachers,abstract_introduction,participation,introduction_pic,introduction_video
     FROM course
   </select>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.trouble.shareresources.pojo.CourseExample" >
