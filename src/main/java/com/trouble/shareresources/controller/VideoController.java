@@ -23,16 +23,9 @@ public class VideoController {
     @RequestMapping(value = "/getVideo",method = RequestMethod.GET)
     @ResponseBody
     public void video( @RequestParam(name = "videoPath") String videoPath)throws Exception{
-        //TODO ******视频地址的获取问题
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@"+videoPath);
-        String videoPath1 = "";
-        videoPath1 = videoPath.replaceAll("//", "/");
-        System.out.println("#####################"+videoPath1);
-        System.out.println(videoPath1);
-//        videoPath = "C:/course_videos/test.mp4";
-//        URL url = new URL(videoPath.replaceFirst("\"", "\"file:/").replaceAll("//", "/"));
-//        System.out.println(url.toURI());
-        File file = new File(videoPath1);
+//        videoPath1 = videoPath.replaceAll("//", "/");
+        System.out.println(videoPath);
+        File file = new File(videoPath);
         FileInputStream in = new FileInputStream(file);
         ServletOutputStream out = response.getOutputStream();
         byte[] b = null;
