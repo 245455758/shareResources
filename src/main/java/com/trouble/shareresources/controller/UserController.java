@@ -18,17 +18,15 @@ public class UserController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public ResultType login(@RequestBody String str){
+    public User login(@RequestBody String str){
         JSONObject jsonStr = JSON.parseObject(str);
         String username = jsonStr.getString("username");
         String password = jsonStr.getString("password");
         User user = userService.checkLogin(username, password);
         User user1 = userService.checkLoginByTelephone(username, password);
-        if (user==null&&user1==null){
-            return new ResultType(false,"用户登陆失败");
-        }else{
-            return new ResultType(true,"用户登录成功");
-        }
+        if (user!=null) return user;
+        else if (user1!=null) return user1;
+        else return null;
     }
 
     @RequestMapping("/register")
