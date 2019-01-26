@@ -10,4 +10,6 @@ public class CourseUnit extends CourseUnitKey {
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
     }
+
+
 }

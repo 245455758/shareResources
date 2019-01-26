@@ -17,7 +17,16 @@ public class UserCourseServiceImpl implements UserCourseService {
 
     @Override
     public int saveUserCourseInfo(UserCourse userCourse) {
-        return userCourseMapper.insertSelective(userCourse);
+        UserCourseExample example = new UserCourseExample();
+        UserCourseExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userCourse.getUserId());
+        criteria.andCourseIdEqualTo(userCourse.getCourseId());
+        List<UserCourse> userCourses = userCourseMapper.selectByExample(example);
+        if (userCourse!=null && userCourses.size()>0) {
+            return 0;
+        }else{
+            return userCourseMapper.insertSelective(userCourse);
+        }
     }
 
     @Override
