@@ -99,4 +99,30 @@ public class UserController {
         if (i>0) return new ResultType(true,"更新密码成功");
         else return new ResultType(false,"更新密码失败");
     }
+
+    @RequestMapping("/getPersonalInfo")
+    @ResponseBody
+    public User getPersonalInfo(@RequestBody String str){
+        JSONObject jsonStr = JSON.parseObject(str);
+        Integer userId = jsonStr.getInteger("userId");
+        User userById = userService.getUserById(userId);
+        return userById;
+    }
+
+    @RequestMapping("updatePersonalInfo")
+    @ResponseBody
+    public ResultType updatePersonalInfo(@RequestBody String str){
+        JSONObject jsonStr = JSON.parseObject(str);
+        Integer userId = jsonStr.getInteger("userId");
+        String username = jsonStr.getString("username");
+        String realname = jsonStr.getString("realname");
+        String unit = jsonStr.getString("unit");
+        String telephone = jsonStr.getString("telephone");
+        String email = jsonStr.getString("email");
+        int i = userService.updatePersonalInfo(userId, username, realname, unit, telephone, email);
+        if (i>0) return new ResultType(true,"更新信息成功");
+        else    return new ResultType(false,"更新用户信息失败");
+    }
+
+    //TODO **个人中心修改密码
 }

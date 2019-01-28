@@ -45,7 +45,6 @@ public class CourseController {
         JSONObject jsonStr = JSON.parseObject(str);
         Integer id = jsonStr.getInteger("id");
         Course courseById = courseService.getCourseById(id);
-        System.out.println(courseById.getIntroductionVideo()+"!!!!!!!!!!!!!!!!!!");
         return courseById;
     }
 

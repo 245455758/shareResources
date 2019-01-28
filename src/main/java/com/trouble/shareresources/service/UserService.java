@@ -33,4 +33,8 @@ public interface UserService {
     User findUserByTelephone(String telephone);
 
     int updatePasswordByTelephone(String telephone, String password);
+
+    User getUserById(Integer id);
+
+    int updatePersonalInfo(Integer userId, String username, String realname, String unit, String telephone, String email);
 }

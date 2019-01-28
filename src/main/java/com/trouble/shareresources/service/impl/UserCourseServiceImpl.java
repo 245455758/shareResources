@@ -39,4 +39,11 @@ public class UserCourseServiceImpl implements UserCourseService {
         if (userCourses!=null&&userCourses.size()>0) return userCourses.get(0).getStatus();
         return -1;
     }
+
+    public List<UserCourse> getCoursesByUserId(Integer userId){
+        UserCourseExample example = new UserCourseExample();
+        UserCourseExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId);
+        return userCourseMapper.selectByExample(example);
+    }
 }

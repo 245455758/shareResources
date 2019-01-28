@@ -73,5 +73,22 @@ public class UserServiceImpl implements UserService {
         return userMapper.updatePasswordByTelephone(user);
     }
 
+    @Override
+    public User getUserById(Integer id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updatePersonalInfo(Integer userId, String username, String realname, String unit, String telephone, String email) {
+        User record = new User();
+        if (userId!=null && userId!=0) record.setId(userId);
+        if (username!=null && !"".equals(username)) record.setUsername(username);
+        if (realname!=null && !"".equals(realname)) record.setRealname(realname);
+        if (unit!=null && !"".equals(unit)) record.setUnit(unit);
+        if (telephone!=null && !"".equals(telephone)) record.setTelephone(telephone);
+        if (email!=null && !"".equals(email)) record.setEmail(email);
+        return userMapper.updateByPrimaryKeySelective(record);
+    }
+
 
 }
